@@ -91,8 +91,11 @@ async function findColumn(
 ): Promise<ZhihuColumn | null> {
   if (!columnId) return null;
   const column = (await client.listColumns()).find((c) => c.id === columnId);
-  if (!column)
-    throw new Error(`No column ${columnId} among your Zhihu columns.`);
+  if (!column) {
+    throw new Error(
+      `No column ${columnId} among your Zhihu columns; pass --column <id> or --no-column.`,
+    );
+  }
   return column;
 }
 
@@ -209,11 +212,15 @@ function buildProgram(): Command {
       "The Zhihu article; defaults to zhihu_article_id in the front matter.",
       "",
     )
-    .option("--column <id>", COLUMN_HELP, "")
+    .option(
+      "--column <id>",
+      "Zhihu column id to publish into; defaults to zhihu_column_id in the front matter.",
+    )
+    .option("--no-column", "Publish without a column.")
     .action(
       async (
         markdownPathArg: string,
-        opts: { articleId: string; column: string },
+        opts: { articleId: string; column?: string | false },
         command: Command,
       ) => {
         const client = await buildClient();
@@ -222,7 +229,12 @@ function buildProgram(): Command {
           markdownPathArg,
           opts.articleId,
         );
-        const column = await findColumn(client, strip(opts.column));
+        const [metadata] = readMarkdownDocument(markdownPath);
+        const columnId =
+          opts.column === false
+            ? ""
+            : strip(opts.column ?? metadataString(metadata, "zhihu_column_id"));
+        const column = await findColumn(client, columnId);
         const updatedId = await client.createOrUpdateArticle(
           markdownPath,
           articleId,

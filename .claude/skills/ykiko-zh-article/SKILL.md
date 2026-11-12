@@ -146,8 +146,9 @@ over-bulleted prose, a one-line paragraph that only dramatizes the previous one.
   (`codex exec --skip-git-repo-check -s workspace-write --image=<file> -` with
   the prompt on stdin; `-i` swallows the prompt), then crop black bars.
 - **Column**: `node scripts/zhihu_cli.ts publish <file> --column <id>`;
-  without `--column` the publish request names no column, for
-  `update-article` too. clice posts go to 「clice 开发日记」
+  without `--column` the article gets no column. `update-article` keeps
+  `zhihu_column_id` from the front matter unless given `--column` or
+  `--no-column`. clice posts go to 「clice 开发日记」
   (`c_1852831599382646784`). An update re-sends `titleImage`
   from `zhihu_title_image_url` in the front matter, so record the cover URL
   there before updating.
