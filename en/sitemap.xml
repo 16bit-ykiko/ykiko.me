@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.ykiko.me/en/articles/</loc>
-    <lastmod>2026-03-27T14:29:52+00:00</lastmod>
+    <lastmod>2026-10-08T09:01:36+00:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -15,6 +15,66 @@
                 rel="alternate"
                 hreflang="zh-CN"
                 href="https://www.ykiko.me/zh-cn/articles/"
+                />
+  </url><url>
+    <loc>https://www.ykiko.me/en/articles/2090994886531100694/</loc>
+    <lastmod>2026-10-08T09:01:36+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.ykiko.me/en/articles/2090994886531100694/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://www.ykiko.me/zh-cn/articles/2090994886531100694/"
+                />
+  </url><url>
+    <loc>https://www.ykiko.me/en/</loc>
+    <lastmod>2026-10-08T09:01:36+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.ykiko.me/en/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://www.ykiko.me/zh-cn/"
+                />
+  </url><url>
+    <loc>https://www.ykiko.me/en/articles/2069934520514749368/</loc>
+    <lastmod>2026-08-11T22:42:55+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.ykiko.me/en/articles/2069934520514749368/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://www.ykiko.me/zh-cn/articles/2069934520514749368/"
+                />
+  </url><url>
+    <loc>https://www.ykiko.me/en/articles/2034883949630059124/</loc>
+    <lastmod>2026-05-06T01:51:13+00:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.ykiko.me/en/articles/2034883949630059124/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://www.ykiko.me/zh-cn/articles/2034883949630059124/"
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1985940996270339378/</loc>
@@ -30,21 +90,6 @@
                 rel="alternate"
                 hreflang="zh-CN"
                 href="https://www.ykiko.me/zh-cn/articles/1985940996270339378/"
-                />
-  </url><url>
-    <loc>https://www.ykiko.me/en/</loc>
-    <lastmod>2026-03-27T14:29:52+00:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="https://www.ykiko.me/en/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-CN"
-                href="https://www.ykiko.me/zh-cn/"
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1971691994037334904/</loc>

@@ -6,8 +6,31 @@
     <description>Recent content in Articles on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 27 Mar 2026 14:29:52 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 08 Oct 2026 09:01:36 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/en/articles/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Starting with import std: Modern C&#43;&#43; Toolchain Best Practices</title>
+      <link>https://www.ykiko.me/en/articles/2090994886531100694/</link>
+      <pubDate>Tue, 06 Oct 2026 14:40:30 +0000</pubDate>
+      <guid>https://www.ykiko.me/en/articles/2090994886531100694/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;TL;DR: &lt;a href=&#34;https://github.com/clice-io/xclang&#34;&gt;xclang&lt;/a&gt; is a cross-compiling Clang toolchain we developed for clice—essentially rustup for Clang. It bundles the compiler, linker, and sysroots with prebuilt runtimes for all six x64 and arm64 targets across Linux, Windows, and macOS into a single archive under 100 MB, so cross-compiling just takes passing &lt;code&gt;--target&lt;/code&gt;. Compiled binaries statically link the C++ runtime: copy a single file over and it runs on Linux with glibc 2.17+, Windows 10+, and macOS 13+. Apple and Microsoft SDKs are not bundled; users can download them from official sources with &lt;code&gt;xclang sdk fetch&lt;/code&gt;, making it possible to build for macOS and MSVC targets even on Linux. It integrates directly with CMake and Bazel, with &lt;code&gt;import std&lt;/code&gt; working out of the box. The compiler itself is built with PGO + ThinLTO, matching official LLVM releases in C++ compilation speed and running even faster on Windows.&lt;/p&gt;
+&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Beyond the Language Server</title>
+      <link>https://www.ykiko.me/en/articles/2069934520514749368/</link>
+      <pubDate>Sun, 09 Aug 2026 11:57:32 +0000</pubDate>
+      <guid>https://www.ykiko.me/en/articles/2069934520514749368/</guid>
+      <description>&lt;p&gt;Three months have passed since my last &lt;a href=&#34;https://www.ykiko.me/en/articles/2034883949630059124&#34;&gt;post&lt;/a&gt;. A lot has happened in the meantime, so I figured I&amp;rsquo;d write another post to share some recent progress and what&amp;rsquo;s been on my mind lately.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>clice in the Agent Era</title>
+      <link>https://www.ykiko.me/en/articles/2034883949630059124/</link>
+      <pubDate>Mon, 04 May 2026 18:56:47 +0000</pubDate>
+      <guid>https://www.ykiko.me/en/articles/2034883949630059124/</guid>
+      <description>&lt;p&gt;It has been almost half a year since my last update on clice. Taking advantage of a rare stretch of free time over the May Day holiday, I&amp;rsquo;d like to write down our recent progress along with some personal thoughts. The topics are somewhat scattered, though they might be interconnected in a few ways.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Building an Elegant C&#43;&#43; Cross-Platform Development and Build Workflow</title>
       <link>https://www.ykiko.me/en/articles/1985940996270339378/</link>

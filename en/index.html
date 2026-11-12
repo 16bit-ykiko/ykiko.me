@@ -210,6 +210,45 @@
 
 <article class="post-entry">
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Starting with import std: Modern C&#43;&#43; Toolchain Best Practices
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> TL;DR: xclang is a cross-compiling Clang toolchain we developed for clice—essentially rustup for Clang. It bundles the compiler, linker, and sysroots with prebuilt runtimes for all six x64 and arm64 targets across Linux, Windows, and macOS into a single archive under 100 MB, so cross-compiling just takes passing --target. Compiled binaries statically link the C&#43;&#43; runtime: copy a single file over and it runs on Linux with glibc 2.17&#43;, Windows 10&#43;, and macOS 13&#43;. Apple and Microsoft SDKs are not bundled; users can download them from official sources with xclang sdk fetch, making it possible to build for macOS and MSVC targets even on Linux. It integrates directly with CMake and Bazel, with import std working out of the box. The compiler itself is built with PGO &#43; ThinLTO, matching official LLVM releases in C&#43;&#43; compilation speed and running even faster on Windows.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-10-06 14:40:30 +0000 UTC'>2026-10-06</span>&nbsp;·&nbsp;<span>Updated 2026-10-08</span>&nbsp;·&nbsp;<span>21 min</span>&nbsp;·&nbsp;<span>4301 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <a class="entry-link" aria-label="post link to Starting with import std: Modern C&#43;&#43; Toolchain Best Practices" href="https://www.ykiko.me/en/articles/2090994886531100694/"></a>
+</article>
+
+<article class="post-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Beyond the Language Server
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Three months have passed since my last post. A lot has happened in the meantime, so I figured I’d write another post to share some recent progress and what’s been on my mind lately.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-08-09 11:57:32 +0000 UTC'>2026-08-09</span>&nbsp;·&nbsp;<span>Updated 2026-08-11</span>&nbsp;·&nbsp;<span>26 min</span>&nbsp;·&nbsp;<span>5336 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <a class="entry-link" aria-label="post link to Beyond the Language Server" href="https://www.ykiko.me/en/articles/2069934520514749368/"></a>
+</article>
+
+<article class="post-entry">
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">clice in the Agent Era
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>It has been almost half a year since my last update on clice. Taking advantage of a rare stretch of free time over the May Day holiday, I’d like to write down our recent progress along with some personal thoughts. The topics are somewhat scattered, though they might be interconnected in a few ways.
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2026-05-04 18:56:47 +0000 UTC'>2026-05-04</span>&nbsp;·&nbsp;<span>Updated 2026-05-06</span>&nbsp;·&nbsp;<span>27 min</span>&nbsp;·&nbsp;<span>5651 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <a class="entry-link" aria-label="post link to clice in the Agent Era" href="https://www.ykiko.me/en/articles/2034883949630059124/"></a>
+</article>
+
+<article class="post-entry">
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Building an Elegant C&#43;&#43; Cross-Platform Development and Build Workflow
     </h2>
   </header>
