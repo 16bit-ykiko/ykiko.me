@@ -1,0 +1,11 @@
+{
+  "log": [
+    "Warning: skipping unsupported <figure> in image parsing",
+    "Warning: skipping unsupported <pre> in code block parsing",
+    "Warning: skipping unsupported <div> in block parsing",
+    "Warning: skipping unsupported <span> in list",
+    "Warning: skipping unsupported <h1> in article body",
+    "Warning: skipping unsupported <section> in article body",
+    "Warning: skipping unsupported <video> in paragraph"
+  ]
+}

@@ -1,0 +1,3 @@
+# Test inputs and expected outputs are compared byte for byte.
+scripts/tests/fixtures/
+scripts/tests/expected/
