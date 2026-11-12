@@ -275,7 +275,7 @@
 <p>然而，由于 C 语言没有一些高级抽象，操作字符串都很麻烦。如果大规模使用，还需要我们自己用 C++ 封装一层。幸好，官方基于这套 C 接口还提供了一个 Python 绑定，即 <a href="https://pypi.org/project/clang/">Clang</a> 这个包，这使得使用起来更加方便。然而，官方提供的 Python 绑定并没有打包 libclang 的这个 DLL，因此你仍然需要在电脑上手动配置 LLVM 的环境，这可能会有些麻烦。不过，社区中有人在 PyPI 上提供了打包好的包：<a href="https://pypi.org/project/libclang/">libclang</a>。</p>
 <p>于是如果你想使用 libclang 来获取 C++ 语法树，只需要</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">pip install libclang
-</span></span></code></pre></div><p>什么额外的事情都不用做。本文就基于这个 Python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
+</span></span></code></pre></div><p>什么额外的事情都不用做。本文就基于这个 Python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 <a href="https://github.com/16bit-ykiko/ykiko.me/blob/main/code/cindex.pyi">cindex.pyi</a>，下载下来之后直接和 放在同一文件夹内就能有代码提示了。</p>
 <h2 id="quick-start">Quick Start<a hidden class="anchor" aria-hidden="true" href="#quick-start">#</a></h2>
 <p>示例的 C++ 源文件代码如下</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="c1">// main.cpp
@@ -326,7 +326,7 @@
 </span></span><span class="line"><span class="cl">            └── INTEGER_LITERAL: <span class="m">0</span>
 </span></span></code></pre></div><p>前面的是语法树节点类型，后面是节点的内容。可以发现还是非常清晰的，几乎能和源代码一一对应。</p>
 <h2 id="basic-types">Basic Types<a hidden class="anchor" aria-hidden="true" href="#basic-types">#</a></h2>
-<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://16bit-ykiko.github.io/about-me/670190357">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
+<p>注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 <a href="https://ykiko.me/zh-cn/articles/670190357/">为什么说 C/C++ 编译器不保留元信息</a>。下面对 cindex 中的一些常用类型做一些介绍</p>
 <h3 id="cursor">Cursor<a hidden class="anchor" aria-hidden="true" href="#cursor">#</a></h3>
 <p>相当于语法树的基本节点，整个语法树都是由 <code>Cursor</code> 组成的。通过 <code>kind</code> 属性返回一个 <code>CursorKind</code> 类型枚举值，就代表了这个节点实际对应的类型。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">for</span> <span class="n">kind</span> <span class="ow">in</span> <span class="n">CursorKind</span><span class="o">.</span><span class="n">get_all_kinds</span><span class="p">():</span>

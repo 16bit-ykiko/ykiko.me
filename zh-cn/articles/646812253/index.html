@@ -349,7 +349,7 @@
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">sorted</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">sort_list</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>三大编译器 C++20 均编译通过！代码放在 <a href="https://godbolt.org/z/4qW7MhfWP">Compiler Explorer</a> 上了，为了防止链接失效。在 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp">GitHub</a> 上也放了一份。</p>
+</span></span></code></pre></div><p>三大编译器 C++20 均编译通过！代码放在 <a href="https://godbolt.org/z/4qW7MhfWP">Compiler Explorer</a> 上了，为了防止链接失效。在 <a href="https://github.com/16bit-ykiko/ykiko.me/blob/main/code/type-list-sort.cpp">GitHub</a> 上也放了一份。</p>
 <blockquote>
 <p>非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用 <code>^^</code> 和 <code>[: :]</code> 运算符即可完成映射，详见 <a href="https://www.ykiko.me/zh-cn/articles/1919923607997518115">Reflection for C++26!!!</a>。</p>
 </blockquote>
@@ -476,7 +476,7 @@
 </span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>三大编译器都按照我们的预期输出了结果！代码同样放在 <a href="https://godbolt.org/z/aP3zs7479">Compiler Explorer</a> 和 <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp">GitHub</a> 上了。</p>
+</span></span></code></pre></div><p>三大编译器都按照我们的预期输出了结果！代码同样放在 <a href="https://godbolt.org/z/aP3zs7479">Compiler Explorer</a> 和 <a href="https://github.com/16bit-ykiko/ykiko.me/blob/main/code/the-true-any.cpp">GitHub</a> 上了。</p>
 <h2 id="conclusion">conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
 <p>这两篇关于 STMP 的文章，算是了却了我一直以来的心愿。在这之前，我一直在思考，如何像上面的代码这样，实现一个真的 <code>any</code> 类型，无需使用者提前注册。我尝试了很多方法，最后都未能如愿。但是 STMP 的出现，让我看到了希望。在意识到它所能到达的高度之后，我立马通宵写完了文章和案例。</p>
 <p>当然了，不推荐在实际的项目中使用这种技术。由于这种代码十分依赖于模板实例化的位置，非常容易造成 ODR 违背，并且多次重复实例化会大大增长编译时间。对于这种需要有状态的代码需求，我们往往可以将其改成无状态的代码，但是，纯手写工作量可能十分巨大，更推荐使用代码生成器进行额外的代码生成来完成这项需求。比如我们可以用 libclang 收集所有编译单元中 any 的实例化信息，然后打一个对应的表就行了。</p>

@@ -577,7 +577,7 @@
 </span></span><span class="line"><span class="cl">    <span class="k">auto</span> <span class="n">vec</span> <span class="o">=</span> <span class="n">f</span><span class="p">();</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>编译运行，发现直接崩溃了。如果关闭 <code>\MT</code> 重新编译一遍动态库，然后运行，发现一切正常。很奇怪，为什么依赖的动态库静态链接 CRT 会导致代码崩溃？</p>
-<p>思考一下上面的代码不难发现，<code>vec</code> 的构造实际上发生在动态库里面，而析构则是发生在 <code>main</code> 函数里面。更进一步，其实就是内存是在动态库里面分配的，释放是在 <code>main</code> 函数里面。但是每一份 CRT 都有自己的 <code>malloc</code>，<code>free</code>（类似于不同进程间的内存）。<strong>你不能把 CRT A 分配的内存交给 CRT B 释放</strong>，这就是问题的根源。所以之后不静态链接到 CRT 就没事了，它们用的都是同一个 <code>malloc</code>，<code>free</code>。不仅仅是 Windows CRT，对于 Linux 上的 glibc 或者 musl 也是一样的。示例代码放在 <a href="https://github.com/16bit-ykiko/about-me/tree/main/code/crt-fault">这里</a>，感兴趣的可以自己试试。</p>
+<p>思考一下上面的代码不难发现，<code>vec</code> 的构造实际上发生在动态库里面，而析构则是发生在 <code>main</code> 函数里面。更进一步，其实就是内存是在动态库里面分配的，释放是在 <code>main</code> 函数里面。但是每一份 CRT 都有自己的 <code>malloc</code>，<code>free</code>（类似于不同进程间的内存）。<strong>你不能把 CRT A 分配的内存交给 CRT B 释放</strong>，这就是问题的根源。所以之后不静态链接到 CRT 就没事了，它们用的都是同一个 <code>malloc</code>，<code>free</code>。不仅仅是 Windows CRT，对于 Linux 上的 glibc 或者 musl 也是一样的。示例代码放在 <a href="https://github.com/16bit-ykiko/ykiko.me/tree/main/code/crt-fault">这里</a>，感兴趣的可以自己试试。</p>
 <h3 id="extern-c">extern &ldquo;C&rdquo;<a hidden class="anchor" aria-hidden="true" href="#extern-c">#</a></h3>
 <p>对于任何带有自定义析构函数的 C++ 类型都可能出现上面那种情况，<strong>由于种种原因，构造函数和析构函数的调用跨越动态库边界，RAII 的约定被打破，导致严重的错误。</strong></p>
 <p>如何解决呢？那自然是函数参数和返回值都不使用带有析构函数的类型了，只使用 POD 类型。</p>
