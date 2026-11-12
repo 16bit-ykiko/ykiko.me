@@ -1,3 +1,4 @@
+import { realpathSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -20,10 +21,14 @@ export const EN_ARTICLES = path.join(
   "articles",
 );
 
-// Whether the module is the script node was started with.
+// Whether the module is the script node was started with; node resolves
+// symlinks in import.meta.url, so argv[1] is resolved the same way.
 export function isMain(moduleUrl: string): boolean {
-  return (
-    Boolean(process.argv[1]) &&
-    path.resolve(process.argv[1]!) === fileURLToPath(moduleUrl)
-  );
+  const script = process.argv[1];
+  if (!script) return false;
+  try {
+    return realpathSync(script) === fileURLToPath(moduleUrl);
+  } catch {
+    return path.resolve(script) === fileURLToPath(moduleUrl);
+  }
 }
