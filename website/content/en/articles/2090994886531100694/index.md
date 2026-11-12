@@ -140,14 +140,14 @@ Note that runner noise is significant, so differences of a few percentage points
 
 The tool closest in approach to xclang is zig cc. Below is a comparison with it and the official LLVM releases
 
-|                        | xclang                                               | zig cc                              | Official LLVM Release                          |
-| ---------------------- | ---------------------------------------------------- | ----------------------------------- | ---------------------------------------------- |
-| Targets                | x64 and arm64 on Linux, Windows (MinGW, MSVC), macOS | Dozens                              | Host only                                      |
-| sysroot and SDK        | Bundled sysroot, SDK downloaded by user              | Ships libc sources and stubs, built on first use | None                                           |
-| C++ runtime in binaries | Statically linked libc++ (Microsoft STL for MSVC targets) | Statically linked libc++            | Host runtime only                              |
-| glibc required by Linux binaries | 2.17+                                                | Selectable per target, 2.31 default | Build machine version (Ubuntu 22.04)           |
-| Compiler PGO           | PGO + ThinLTO on all hosts                           | Unspecified                         | PGO + ThinLTO on Linux/macOS, PGO only on Windows |
-| Download size          | 86–94 MB                                             | 55 MB                               | 0.9–2 GB                                       |
+|                                  | xclang                                                    | zig cc                                           | Official LLVM Release                             |
+| -------------------------------- | --------------------------------------------------------- | ------------------------------------------------ | ------------------------------------------------- |
+| Targets                          | x64 and arm64 on Linux, Windows (MinGW, MSVC), macOS      | Dozens                                           | Host only                                         |
+| sysroot and SDK                  | Bundled sysroot, SDK downloaded by user                   | Ships libc sources and stubs, built on first use | None                                              |
+| C++ runtime in binaries          | Statically linked libc++ (Microsoft STL for MSVC targets) | Statically linked libc++                         | Host runtime only                                 |
+| glibc required by Linux binaries | 2.17+                                                     | Selectable per target, 2.31 default              | Build machine version (Ubuntu 22.04)              |
+| Compiler PGO                     | PGO + ThinLTO on all hosts                                | Unspecified                                      | PGO + ThinLTO on Linux/macOS, PGO only on Windows |
+| Download size                    | 86–94 MB                                                  | 55 MB                                            | 0.9–2 GB                                          |
 
 zig cc also works right after downloading and cross-compiles by passing `-target`. The difference is that zig ships the sources for libc++, libc++abi, libunwind, compiler-rt, and several C libraries, building them on the spot the first time a target is used and caching the result, which keeps its download archive very small. xclang instead ships prebuilt runtimes for all six targets directly, so there is no wait on first use and everyone gets byte-for-byte identical runtimes. Two of the reasons I passed on zig cc back in that workflow post were tied to how it packages its libraries: it puts headers from all glibc versions together and differentiates them with macros, causing `__has_include` to misfire; and when it builds libc++ on the fly, it doesn't build modules, nor could I get it to use a libc++ module I built myself, leaving `import std` unusable.
 
