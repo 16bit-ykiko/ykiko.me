@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 As is well known, there are currently two special constructors in C++: the copy constructor and the move constructor.
 
 The copy constructor was added in C++98 to copy an object. For resource-owning types like `vector`, copying involves copying the resources it owns.

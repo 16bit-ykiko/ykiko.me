@@ -8,8 +8,6 @@ zhihu_column_id: c_1852831599382646784
 zhihu_column_title: clice 开发日记
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 After the [article](https://www.ykiko.me/en/articles/13394352064) about clice was published, the response I received far exceeded my expectations, and many friends expressed a desire to participate in the development. While this enthusiasm is good, the barrier to entry is not low, mainly due to the difficulty of interacting with clang's API. What makes it difficult? On the one hand, there is relatively little information about clang on the internet, whether in Chinese or English communities (this is expected, as there is very little demand for it, so naturally few people discuss it). On the other hand, due to the complexity of the C++ language itself, many details require a deeper understanding of the language before they can be grasped, and connecting theory with implementation is not easy.
 
 Therefore, I decided to write two articles about clang. The first article will introduce how to write code generation or static analysis tools based on clang, along with a comprehensive introduction to the clang AST. The second article will delve deeper into clang's architecture as a compiler, specifically the implementation details of various processes, and how clice uses clang. I hope these two articles will remove obstacles for readers who wish to participate in clice's development. If you are interested in contributing to clang or writing clang tools, you can also continue reading.

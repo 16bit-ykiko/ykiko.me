@@ -6,8 +6,6 @@ zhihu_article_id: "706509748"
 zhihu_url: https://zhuanlan.zhihu.com/p/706509748
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Due to a series of coincidences, I participated in last week's WG21 meeting (the C++ Standards Committee meeting). Although I often browse new proposals for the C++ standard, I never expected to one day actually attend a WG21 meeting and get real-time updates on the latest progress of the C++ standard. Of course, this was my first time attending, and I was very excited. I'm writing this to record my feelings and the progress of the meeting.
 
 ## How It Started

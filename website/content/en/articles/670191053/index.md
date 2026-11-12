@@ -11,8 +11,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## Static and Dynamic
 
 The terms static typing and dynamic typing are probably familiar to everyone. The key to distinguishing between them lies in the timing of type checking. What does that mean?

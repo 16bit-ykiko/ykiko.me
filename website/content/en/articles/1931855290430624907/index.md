@@ -8,8 +8,6 @@ zhihu_column_id: c_1852831599382646784
 zhihu_column_title: clice 开发日记
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Last night, I bought the domain name [clice.io](https://clice.io/) and deployed clice's documentation website on it. There's an indescribable joy in my heart. On one hand, I really like the `clice.io` domain; it looks very refined and beautiful. I actually had a few other candidates, such as `.dev`, but in the end, I chose this one, which is relatively more expensive (500 per year) but looks better. On the other hand, it signifies that clice has entered a new phase.
 
 Does this new phase mean clice is ready for preliminary use? _Unfortunately, not yet_. So when will clice be usable? This is indeed the most frequently asked question I've received recently. Seven months have passed since the first [blog post](https://www.ykiko.me/en/articles/13394352064) about clice was published. According to the estimates at the time, clice should be highly usable by now, but things don't always go as planned. So, I'm writing this article to update readers who are following clice's progress on what's happened in the past few months.

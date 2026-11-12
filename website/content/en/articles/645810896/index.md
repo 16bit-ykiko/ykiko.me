@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 `std::variant` was added to the standard library in C++17. This article will discuss the background of its inclusion and some issues related to its usage.
 
 ## sum type

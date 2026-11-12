@@ -11,8 +11,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## Introduction
 
 Let's take a recent requirement as an introduction. We all know that Markdown can use `lang` to fill in code blocks and supports code highlighting. However, I wanted to support my own custom code highlighting rules and encountered the following problems:

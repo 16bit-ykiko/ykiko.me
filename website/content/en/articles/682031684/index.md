@@ -11,8 +11,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 A few months ago, I wrote an article introducing C++ templates: [Looking at Flowers in a Fog: A True Understanding of C++ Templates](https://www.ykiko.me/en/articles/655902377).
 
 It clarified the position of templates in modern C++. Among the changes, using constexpr functions to replace templates for compile-time computation is arguably one of the most important improvements in modern C++. `constexpr` itself is not difficult to understand; it's very intuitive. However, because it has been improved in almost every version of C++, the features available in different C++ versions vary greatly, which can sometimes give a feeling of `inconsistency`.

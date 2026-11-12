@@ -6,8 +6,6 @@ zhihu_article_id: "659510753"
 zhihu_url: https://zhuanlan.zhihu.com/p/659510753
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## Introduction
 
 In C++, an expression like `&T::name` returns a pointer to member. It's occasionally used when writing code, but this concept might not be familiar to many. Consider the following code:

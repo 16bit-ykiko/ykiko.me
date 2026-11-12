@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 The concept of templates in C++ has existed for over twenty years. As one of the language's most important constructs, there is no shortage of related discussion. Unfortunately, truly in-depth and valuable discussions are rare — especially those that examine the feature from multiple perspectives. Many articles on templates tend to entangle the topic with various syntactic details, easily leaving readers with a hazy impression. Similar things happen elsewhere: introductions to coroutines often mix them with all kinds of I/O concerns, and discussions of reflection seem confined to reflection in Java or C#. This isn't unreasonable, but it often leaves readers unable to grasp the essence. After consuming a lot of content, one still can't get to the heart of the matter, and it becomes easy to conflate different concepts.
 
 Personally, I prefer to discuss a topic from multiple levels and angles rather than limiting myself to one particular aspect. This leads to a better understanding of the subject itself and prevents one's perspective from becoming too narrow. This article will therefore attempt to trace the evolution of templates in C++ from their origins, examining the feature through four lenses. Note that this is not a tutorial — it will not dive into syntactic minutiae. The focus is on design philosophy and trade-offs. A basic familiarity with templates is sufficient to follow along. Some rigor may be sacrificed as a result; if there are any errors, please feel free to discuss them in the comments.

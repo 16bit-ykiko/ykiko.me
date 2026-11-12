@@ -8,8 +8,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 At the C++26 Sofia meeting, which just concluded yesterday, seven proposals related to **Static Reflection**:
 
 - [Reflection for C++26](https://isocpp.org/files/papers/P2996R13.html)

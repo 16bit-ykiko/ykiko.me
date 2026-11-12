@@ -11,8 +11,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Clang is a C-language family compiler frontend provided by the LLVM project. It was originally developed to replace the C language frontend of the GNU Compiler Collection (GCC), with the goal of providing faster compilation speeds, better diagnostic information, and a more flexible architecture. Clang includes C, C++, and Objective-C compiler frontends, which are designed to be embedded in other projects. A key feature of Clang is its modular architecture, which makes it easier for developers to extend and customize compiler functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.
 
 In addition to being used as a compiler, Clang can also be provided as a library, allowing developers to leverage compiler features in their applications, such as source code analysis and generation. Clang can be used to obtain the Abstract Syntax Tree (AST) of C++ source files for further processing. This article will introduce how to use Clang tools.

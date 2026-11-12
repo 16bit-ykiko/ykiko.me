@@ -11,8 +11,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## First, what is metadata?
 
 Consider the following `python` code. We want to automatically modify the corresponding field value based on the input string.

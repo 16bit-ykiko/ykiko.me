@@ -11,8 +11,6 @@ zhihu_column_id: c_1707545619290316800
 zhihu_column_title: 编程语言中的反射
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## What is Reflection?
 
 The term Reflection is probably not new to anyone; perhaps you haven't used it, but you've certainly heard of it. However, like many other **idiomatic terms** in the CS field, there isn't a clear and precise definition for reflection. This leads to a situation where, for languages like C#, Java, and Python that have reflection, discussing it naturally brings to mind related facilities, APIs, and code examples in those languages, making it very concrete. But for languages like C, C++, and Rust, which don't have reflection, when reflection is discussed, people are often unsure what the other person is referring to, making it very abstract. For example, someone might tell me that Rust has reflection, and the example they provide is the introduction to [std::Any module](https://doc.rust-lang.org/stable/std/any/index.html) in Rust's official documentation. It mentions:

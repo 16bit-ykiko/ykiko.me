@@ -6,8 +6,6 @@ zhihu_article_id: "1985940996270339378"
 zhihu_url: https://zhuanlan.zhihu.com/p/1985940996270339378
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 C++ build issues have always been a hot topic, especially in various language wars, where they are often used as a negative example. Interestingly, most C++ programmers are often involved in maintaining existing systems, facing highly solidified, unchangeable build processes. The number of people who actually need to set up a project from scratch is in the minority.
 
 This leads to an awkward situation: when you really need to build from scratch and want to find reference cases, you'll find that there is no so-called Best Practice, only various unsystematic workarounds, which is very frustrating.

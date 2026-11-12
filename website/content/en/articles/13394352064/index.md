@@ -11,8 +11,6 @@ zhihu_column_id: c_1852831599382646784
 zhihu_column_title: clice 开发日记
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 It's been several months since my last blog post. The reason for this long hiatus is that I've been busy working on [clice](https://github.com/clice-project/clice) – a brand new C++ language server.
 
 Some readers might be unfamiliar with the concept of a language server. However, you've certainly used IDEs like Visual Studio or CLion and experienced features such as code completion, navigation, and refactoring. In traditional IDEs, these features were implemented by IDE plugins or built-in functionalities. This approach meant that each language required separate support development for every editor, leading to high maintenance costs. When Microsoft released Visual Studio Code, they aimed to solve this problem and thus introduced the [LSP (Language Server Protocol)](https://microsoft.github.io/language-server-protocol/) concept. LSP proposes a standard client-server model. Language features are provided by an independent language server, and VSCode only needs to implement a generic client to communicate with it. This method decouples the editor from language support, allowing VSCode to easily support multiple languages. For example, if you want to view the `implementation` of a `method`, your editor will send a `go to implementation` request to the language server. The specific content of this request might include the file path and the current cursor position in the source file. The language server processes this request and returns a file location and coordinates, which the editor then uses to open the corresponding file and navigate.

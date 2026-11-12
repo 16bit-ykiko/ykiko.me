@@ -6,8 +6,6 @@ zhihu_article_id: "694365783"
 zhihu_url: https://zhuanlan.zhihu.com/p/694365783
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 [Compiler Explorer](https://godbolt.org/) is a very popular online C++ compiler, which can be used to test different compilation and execution environments, or to share code. As a C++ enthusiast, I interact with it almost every day, and its frequency of use far exceeds my imagination. At the same time, I am also a heavy VSCode user, completing almost everything within VSCode. Considering that I often write code locally and then copy it to Compiler Explorer, it always felt uncomfortable. Sometimes I would directly modify it on its web editor, but without code completion, that was also uncomfortable. Therefore, I collaborated with [@iiirhe](https://www.zhihu.com/people/32ffceca937677f7950b64e5186bb998) to write this extension [Compiler Explorer for VSCode](https://marketplace.visualstudio.com/items?itemName=ykiko.vscode-compiler-explorer), which integrates Compiler Explorer into VSCode based on the [API](https://github.com/compiler-explorer/compiler-explorer/blob/main/docs/API.md) provided by Compiler Explorer, allowing users to directly use Compiler Explorer's features within VSCode.
 
 You can now search for this extension in the VSCode Marketplace.

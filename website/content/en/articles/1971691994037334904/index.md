@@ -6,8 +6,6 @@ zhihu_article_id: "1971691994037334904"
 zhihu_url: https://zhuanlan.zhihu.com/p/1971691994037334904
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## Why do we need AOT for CuTe DSL?
 
 CUTLASS C++ is a library for writing high-performance CUDA operators, known for its complexity and difficulty. To reduce the learning curve, NVIDIA introduced the Python-based [CuTe DSL](https://docs.nvidia.com/cutlass/latest/media/docs/pythonDSL/overview.html). Using Python instead of C++ templates for metaprogramming offers many benefits. First, users no longer have to struggle with the obscure template errors of C++, which is a major headache for C++ beginners; now they can focus on the code logic. Additionally, `nvcc` compilation is slow, and most of that time is spent in the compiler frontend, parsing C++ code. Especially for template-heavy libraries like CUTLASS, most of the time is spent processing template instantiations. Using CuTe DSL can bypass this issue. Compared to C++ code using CUTLASS, its compilation speed can be tens or even hundreds of times faster. Furthermore, operators and unit tests can now be written together in Python, which is much more convenient.

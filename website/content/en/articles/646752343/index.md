@@ -9,8 +9,6 @@ zhihu_article_id: "646752343"
 zhihu_url: https://zhuanlan.zhihu.com/p/646752343
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 As is well known, traditional C++ constant expression evaluation neither depends on nor changes the global state of the program. For any identical input, its output is always the same, and it is considered **purely functional**. **Template Meta Programming**, as a subset of constant evaluation, should also adhere to this rule.
 
 ![](https://pica.zhimg.com/v2-310046d2ded45ca99cb74d992a94a51e_r.jpg)

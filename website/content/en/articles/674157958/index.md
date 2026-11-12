@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## Introduction
 
 In `C++17`, a feature called "**structured binding**" was introduced. This feature is similar to pattern matching in other languages and allows us to conveniently access members of a struct.

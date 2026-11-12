@@ -11,8 +11,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Recently, I've been planning to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has a new reflection proposal, and I noticed there aren't many related articles on Zhihu, despite this topic being frequently discussed. So, I'm taking this opportunity to talk about static reflection in C++, as a warm-up for the series.
 
 > This article is outdated. Static reflection has officially entered C++26. Please refer to [Reflection for C++26!!!](https://www.ykiko.me/en/articles/1919923607997518115)

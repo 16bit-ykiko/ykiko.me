@@ -9,8 +9,6 @@ zhihu_article_id: "646812253"
 zhihu_url: https://zhuanlan.zhihu.com/p/646812253
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 In the previous [article](https://www.ykiko.me/en/articles/646752343), we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.
 
 ## type <=> value

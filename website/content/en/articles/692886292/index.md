@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Application Binary Interface, or ABI as we commonly call it, is a concept that feels both familiar and unfamiliar. Familiar in what sense? It's often discussed when troubleshooting, frequently mentioned in articles, and sometimes we even have to deal with compatibility issues it causes. Unfamiliar in what sense? If someone asks you what an ABI is, you'll find that you know what it's about, but describing it in precise language is quite difficult. In the end, you might just resort to saying, as [WIKI](https://en.wikipedia.org/wiki/Application_binary_interface) does: an ABI is an interface between two binary program modules. Is there a problem with that? No, as a general description, it's sufficient. But it can feel a bit hollow.
 
 This situation is not uncommon in the field of Computer Science. The author encountered the exact same situation in a previous article discussing [reflection](https://www.ykiko.me/en/articles/669358870). Fundamentally, CS is not a discipline that strives for absolute rigor; many concepts lack strict definitions and are more often conventional understandings. So, instead of getting bogged down in definitions, let's look at what these so-called binary interfaces actually are and what factors affect their stability.

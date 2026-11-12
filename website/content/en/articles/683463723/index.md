@@ -11,8 +11,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Prequel: [The History of constexpr in C++! (Part One)](https://www.ykiko.me/en/articles/682031684)
 
 ## 2015-2016: Syntactic Sugar for Templates

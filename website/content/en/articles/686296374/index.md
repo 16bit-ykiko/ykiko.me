@@ -8,8 +8,6 @@ zhihu_column_id: c_1656510843973046272
 zhihu_column_title: 魅力C++
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 Readers probably often hear people say that C++ code suffers from severe binary bloat, but usually few people point out the specific reasons. After a search online, I found that there aren't many articles that delve deeply into this issue. The above statement is more like part of a cliché, passed down by word of mouth, but few can explain why. Today, your editor ykiko will take everyone on a journey to explore the ins and outs of C++ code bloat (^ω^)
 
 First, let's discuss, what is code bloat? If a function is heavily inlined, the final executable file will be larger compared to not being inlined, right? Does that count as bloat? I don't think so; this is within our expectations, acceptable, and normal behavior. Conversely, code bloat that is outside our expectations, theoretically eliminable but not eliminated due to existing implementations, I call "true code bloat". All discussions of bloat in the following text refer to this meaning.

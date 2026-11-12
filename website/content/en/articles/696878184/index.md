@@ -8,8 +8,6 @@ zhihu_column_id: c_1767778500918935552
 zhihu_column_title: ABI 二三事
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 **Singleton Pattern** is a common design pattern, often applied in scenarios such as configuration systems, logging systems, and database connection pools, where object uniqueness must be ensured. But can the Singleton Pattern truly guarantee a single instance? What are the consequences if uniqueness is not guaranteed?
 
 Since I've written this article, the answer is definitely no. There have been many related discussions on Zhihu, such as [Will C++ Singleton Pattern across DLLs cause problems?](https://www.zhihu.com/question/425920019/answer/2254241454) and [Singleton Pattern BUG when mixing dynamic and static libraries](https://zhuanlan.zhihu.com/p/354694011). However, most of them just post solutions after encountering problems, which are scattered and lack a systematic analysis of the root causes. Therefore, I wrote this article to discuss this issue in detail.

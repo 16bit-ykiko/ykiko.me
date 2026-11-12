@@ -6,8 +6,6 @@ zhihu_article_id: "680412313"
 zhihu_url: https://zhuanlan.zhihu.com/p/680412313
 ---
 
-> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-
 ## no hard code
 
 Define an `enum`

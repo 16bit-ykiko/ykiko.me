@@ -42,21 +42,6 @@ Return only the translated text without commentary.
 """.strip()
 
 
-def format_model_label(model: str) -> str:
-    normalized = model.strip()
-    if normalized == "gemini-2.5-pro":
-        return "Gemini 2.5 Pro"
-    return normalized
-
-
-def build_english_ai_translation_notice(model: str) -> str:
-    model_label = format_model_label(model)
-    return (
-        f"> This article was translated by AI using {model_label} from the original "
-        "Chinese version. Minor inaccuracies may remain."
-    )
-
-
 def extract_front_matter(markdown_text: str) -> tuple[dict[str, Any], str, bool]:
     if not markdown_text.startswith("---\n"):
         return {}, markdown_text, False
@@ -82,13 +67,6 @@ def render_front_matter(metadata: dict[str, Any], body: str) -> str:
         line.rstrip() for line in body.lstrip("\n").split("\n")
     ).rstrip()
     return f"---\n{header}\n---\n\n{normalized_body}\n"
-
-
-def prepend_notice(body: str, notice: str) -> str:
-    normalized_body = body.lstrip("\n")
-    if normalized_body.startswith(notice):
-        return normalized_body
-    return f"{notice}\n\n{normalized_body}"
 
 
 @dataclass(frozen=True)
@@ -296,10 +274,6 @@ class GeminiTranslator:
                 markdown=True,
             ),
         )
-        if target_lang.strip().lower().startswith("english"):
-            translated_body = prepend_notice(
-                translated_body, build_english_ai_translation_notice(self.model)
-            )
         if not has_front_matter:
             return translated_body
 
