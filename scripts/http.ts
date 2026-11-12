@@ -93,19 +93,23 @@ export class CookieJar {
       let secure = false;
       let expires: number | null = null;
       let maxAge: number | null = null;
+      let invalid = false;
+      const seen = new Set<string>();
       for (const part of parts.slice(1)) {
         const [rawKey, ...rest] = part.split("=");
         const key = rawKey!.trim().toLowerCase();
         const val = rest.join("=").trim();
-        if (key === "domain") domain = val;
+        if (seen.has(key)) continue;
+        seen.add(key);
+        if (key === "domain") domain = val.toLowerCase();
         else if (key === "path") path = val;
         else if (key === "secure") secure = true;
-        else if (key === "max-age" && /^-?\d+$/.test(val)) maxAge = Number(val);
-        else if (key === "expires") {
-          const t = Date.parse(val.replace(/^"|"$/g, ""));
-          if (!Number.isNaN(t)) expires = t / 1000;
-        }
+        else if (key === "max-age") {
+          if (/^-?\d+$/.test(val)) maxAge = Number(val);
+          else invalid = true;
+        } else if (key === "expires") expires = parseExpires(val);
       }
+      if (invalid) continue;
       if (maxAge !== null) expires = Date.now() / 1000 + maxAge;
       const host = effectiveHost(url.hostname);
       let cookieDomain: string;
@@ -116,7 +120,7 @@ export class CookieJar {
         const bare = cookieDomain.slice(1);
         if (host !== bare && !host.endsWith(cookieDomain)) continue;
       }
-      if (path === null || !path.startsWith("/")) {
+      if (path === null || path === "") {
         const p = url.pathname || "/";
         const i = p.lastIndexOf("/");
         path = i > 0 ? p.slice(0, i) : "/";
@@ -128,6 +132,19 @@ export class CookieJar {
       this.store({ name, value, domain: cookieDomain, path, secure, expires });
     }
   }
+}
+
+// A date with a month name; one without a zone is UTC. Anything else
+// leaves the cookie a session cookie.
+function parseExpires(value: string): number | null {
+  const text = value.replace(/^"|"$/g, "");
+  if (!/jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec/i.test(text))
+    return null;
+  const zoned = /(gmt|utc|z|[+-]\d{2}:?\d{2})\s*$/i.test(text)
+    ? text
+    : `${text} GMT`;
+  const t = Date.parse(zoned);
+  return Number.isNaN(t) ? null : t / 1000;
 }
 
 function effectiveHost(host: string): string {
@@ -255,6 +272,7 @@ export const nodeTransport: Transport = (request) =>
               body: decode(
                 Buffer.concat(chunks),
                 res.headers["content-encoding"],
+                res.statusCode ?? 0,
               ),
             });
           } catch (error) {
@@ -275,7 +293,22 @@ export const nodeTransport: Transport = (request) =>
     req.end();
   });
 
-function decode(body: Buffer, encoding: string | undefined): Buffer {
+// An empty body, or one of a redirect that does not decode, is kept as is.
+function decode(
+  body: Buffer,
+  encoding: string | undefined,
+  status: number,
+): Buffer {
+  if (body.length === 0) return body;
+  try {
+    return decompress(body, encoding);
+  } catch (error) {
+    if (status >= 300 && status < 400) return body;
+    throw error;
+  }
+}
+
+function decompress(body: Buffer, encoding: string | undefined): Buffer {
   switch ((encoding ?? "").trim().toLowerCase()) {
     case "gzip":
     case "x-gzip":
@@ -386,6 +419,9 @@ export class Session {
         (raw.status === 301 && method === "POST")
       ) {
         method = "GET";
+      }
+      // Only 307 and 308 send the body again.
+      if (raw.status !== 307 && raw.status !== 308) {
         body = null;
         headers = Object.fromEntries(
           Object.entries(headers).filter(
