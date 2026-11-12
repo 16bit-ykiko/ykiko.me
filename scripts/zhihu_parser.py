@@ -5,6 +5,8 @@ import markdown_ast as markdown
 from urllib.parse import unquote
 from bs4 import BeautifulSoup, Tag, PageElement
 
+OLD_PAGES_ARTICLE = re.compile(r"^https://16bit-ykiko\.github\.io/about-me/(\d+)/?$")
+
 
 class Article:
     def __init__(
@@ -191,7 +193,12 @@ class Parser:
 
     def normalize_url(self, url: str) -> str:
         url = unquote(url.replace("//link.zhihu.com/?target=https%3A", ""))
-        return self.urls_map.get(url, url)
+        url = self.urls_map.get(url, url)
+        # The repository was about-me until 2026-11; the Zhihu articles keep its links.
+        url = url.replace(
+            "https://github.com/16bit-ykiko/about-me/", "https://github.com/16bit-ykiko/ykiko.me/"
+        )
+        return OLD_PAGES_ARTICLE.sub(r"https://ykiko.me/zh-cn/articles/\1/", url)
 
     def parse_link(self, element: Tag) -> markdown.Link:
         url = self.normalize_url(element["href"])

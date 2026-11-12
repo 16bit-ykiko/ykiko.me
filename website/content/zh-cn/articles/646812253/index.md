@@ -146,7 +146,7 @@ using expected = type_list<char, char, char, int, int, double, double>;
 static_assert(std::is_same_v<sorted, expected>);
 ```
 
-三大编译器 C++20 均编译通过！代码放在 [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP) 上了，为了防止链接失效。在 [GitHub](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp) 上也放了一份。
+三大编译器 C++20 均编译通过！代码放在 [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP) 上了，为了防止链接失效。在 [GitHub](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/type-list-sort.cpp) 上也放了一份。
 
 > 非常值得一提的是，这种类型和值的双向映射在 Reflection for C++26 中已经成为语言内置的功能。我们不再需要去利用 friend injection 这种奇淫巧技，直接使用 `^^` 和 `[: :]` 运算符即可完成映射，详见 [Reflection for C++26!!!](https://www.ykiko.me/zh-cn/articles/1919923607997518115)。
 
@@ -295,7 +295,7 @@ int main() {
 }
 ```
 
-三大编译器都按照我们的预期输出了结果！代码同样放在 [Compiler Explorer](https://godbolt.org/z/aP3zs7479) 和 [GitHub](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp) 上了。
+三大编译器都按照我们的预期输出了结果！代码同样放在 [Compiler Explorer](https://godbolt.org/z/aP3zs7479) 和 [GitHub](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/the-true-any.cpp) 上了。
 
 ## conclusion
 
