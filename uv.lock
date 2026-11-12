@@ -3,51 +3,6 @@ revision = 3
 requires-python = ">=3.12"
 
 [[package]]
-name = "about-me-tools"
-version = "0.1.0"
-source = { virtual = "." }
-dependencies = [
-    { name = "beautifulsoup4" },
-    { name = "markdown" },
-    { name = "pyyaml" },
-    { name = "qrcode" },
-    { name = "requests" },
-    { name = "rich" },
-    { name = "textual" },
-]
-
-[package.dev-dependencies]
-ci = [
-    { name = "beautifulsoup4" },
-    { name = "pyyaml" },
-    { name = "requests" },
-    { name = "rich" },
-]
-dev = [
-    { name = "ruff" },
-]
-
-[package.metadata]
-requires-dist = [
-    { name = "beautifulsoup4", specifier = ">=4.12.3" },
-    { name = "markdown", specifier = ">=3.7" },
-    { name = "pyyaml", specifier = ">=6.0.2" },
-    { name = "qrcode", specifier = ">=8.0" },
-    { name = "requests", specifier = ">=2.32.3" },
-    { name = "rich", specifier = ">=13.9.4" },
-    { name = "textual", specifier = ">=0.79.1" },
-]
-
-[package.metadata.requires-dev]
-ci = [
-    { name = "beautifulsoup4", specifier = ">=4.12.3" },
-    { name = "pyyaml", specifier = ">=6.0.2" },
-    { name = "requests", specifier = ">=2.32.3" },
-    { name = "rich", specifier = ">=13.9.4" },
-]
-dev = [{ name = "ruff", specifier = ">=0.11.0" }]
-
-[[package]]
 name = "beautifulsoup4"
 version = "4.14.3"
 source = { registry = "https://pypi.org/simple" }
@@ -400,3 +355,48 @@ sdist = { url = "https://files.pythonhosted.org/packages/c7/24/5f1b3bdffd70275f6
 wheels = [
     { url = "https://files.pythonhosted.org/packages/39/08/aaaad47bc4e9dc8c725e68f9d04865dbcb2052843ff09c97b08904852d84/urllib3-2.6.3-py3-none-any.whl", hash = "sha256:bf272323e553dfb2e87d9bfd225ca7b0f467b919d7bbd355436d3fd37cb0acd4", size = 131584, upload-time = "2026-01-07T16:24:42.685Z" },
 ]
+
+[[package]]
+name = "ykiko-me-tools"
+version = "0.1.0"
+source = { virtual = "." }
+dependencies = [
+    { name = "beautifulsoup4" },
+    { name = "markdown" },
+    { name = "pyyaml" },
+    { name = "qrcode" },
+    { name = "requests" },
+    { name = "rich" },
+    { name = "textual" },
+]
+
+[package.dev-dependencies]
+ci = [
+    { name = "beautifulsoup4" },
+    { name = "pyyaml" },
+    { name = "requests" },
+    { name = "rich" },
+]
+dev = [
+    { name = "ruff" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "beautifulsoup4", specifier = ">=4.12.3" },
+    { name = "markdown", specifier = ">=3.7" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "qrcode", specifier = ">=8.0" },
+    { name = "requests", specifier = ">=2.32.3" },
+    { name = "rich", specifier = ">=13.9.4" },
+    { name = "textual", specifier = ">=0.79.1" },
+]
+
+[package.metadata.requires-dev]
+ci = [
+    { name = "beautifulsoup4", specifier = ">=4.12.3" },
+    { name = "pyyaml", specifier = ">=6.0.2" },
+    { name = "requests", specifier = ">=2.32.3" },
+    { name = "rich", specifier = ">=13.9.4" },
+]
+dev = [{ name = "ruff", specifier = ">=0.11.0" }]
