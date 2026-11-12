@@ -33,7 +33,7 @@ So, if you want to use libclang to get a C++ syntax tree, you just need to
 pip install libclang
 ```
 
-No extra steps are required. This article will introduce it based on this Python binding version. The C version API and the Python version API are basically identical. If you feel that Python's performance is insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, which means there's no code completion when writing in Python, making it less comfortable to use. I've added a type-hinted [cindex.pyi](https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi); just download it and place it in the same folder to get code completion.
+No extra steps are required. This article will introduce it based on this Python binding version. The C version API and the Python version API are basically identical. If you feel that Python's performance is insufficient, you can also refer to this tutorial to write C version code. Additionally, the official package does not provide type hints, which means there's no code completion when writing in Python, making it less comfortable to use. I've added a type-hinted [cindex.pyi](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/cindex.pyi); just download it and place it in the same folder to get code completion.
 
 ## Quick Start
 
@@ -101,7 +101,7 @@ The first part is the syntax tree node type, and the second part is the node con
 
 ## Basic Types
 
-Note that this article assumes the reader has some understanding of syntax trees and will not go into too much detail here. If you don't know what a syntax tree is, you can refer to [Why C/C++ Compilers Don't Retain Metadata](https://16bit-ykiko.github.io/about-me/670190357). Below are some common types in cindex.
+Note that this article assumes the reader has some understanding of syntax trees and will not go into too much detail here. If you don't know what a syntax tree is, you can refer to [Why C/C++ Compilers Don't Retain Metadata](https://ykiko.me/en/articles/670190357/). Below are some common types in cindex.
 
 ### Cursor
 

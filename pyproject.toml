@@ -1,5 +1,5 @@
 [project]
-name = "about-me-tools"
+name = "ykiko-me-tools"
 version = "0.1.0"
 description = "Local and CI tooling for syncing and publishing Zhihu content."
 requires-python = ">=3.12"

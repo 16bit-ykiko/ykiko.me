@@ -148,7 +148,7 @@ using expected = type_list<char, char, char, int, int, double, double>;
 static_assert(std::is_same_v<sorted, expected>);
 ```
 
-All three major compilers compile this successfully with C++20! The code is available on [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP). To prevent link rot, a copy is also available on [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp).
+All three major compilers compile this successfully with C++20! The code is available on [Compiler Explorer](https://godbolt.org/z/4qW7MhfWP). To prevent link rot, a copy is also available on [Github](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/type-list-sort.cpp).
 
 > It's worth noting that this bidirectional mapping between types and values has become a built-in language feature in Reflection for C++26. We no longer need to use clever tricks like friend injection; we can directly use the `^^` and `[: :]` operators to achieve the mapping. See [Reflection for C++26!!!](https://www.ykiko.me/en/articles/1919923607997518115) for details.
 
@@ -297,7 +297,7 @@ int main() {
 }
 ```
 
-All three major compilers output the results as we expected! The code is also available on [Compiler Explorer](https://godbolt.org/z/aP3zs7479) and [Github](https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp).
+All three major compilers output the results as we expected! The code is also available on [Compiler Explorer](https://godbolt.org/z/aP3zs7479) and [Github](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/the-true-any.cpp).
 
 ## conclusion
 

@@ -440,7 +440,7 @@ int main() {
 
 编译运行，发现直接崩溃了。如果关闭 `\MT` 重新编译一遍动态库，然后运行，发现一切正常。很奇怪，为什么依赖的动态库静态链接 CRT 会导致代码崩溃？
 
-思考一下上面的代码不难发现，`vec` 的构造实际上发生在动态库里面，而析构则是发生在 `main` 函数里面。更进一步，其实就是内存是在动态库里面分配的，释放是在 `main` 函数里面。但是每一份 CRT 都有自己的 `malloc`，`free`（类似于不同进程间的内存）。**你不能把 CRT A 分配的内存交给 CRT B 释放**，这就是问题的根源。所以之后不静态链接到 CRT 就没事了，它们用的都是同一个 `malloc`，`free`。不仅仅是 Windows CRT，对于 Linux 上的 glibc 或者 musl 也是一样的。示例代码放在 [这里](https://github.com/16bit-ykiko/about-me/tree/main/code/crt-fault)，感兴趣的可以自己试试。
+思考一下上面的代码不难发现，`vec` 的构造实际上发生在动态库里面，而析构则是发生在 `main` 函数里面。更进一步，其实就是内存是在动态库里面分配的，释放是在 `main` 函数里面。但是每一份 CRT 都有自己的 `malloc`，`free`（类似于不同进程间的内存）。**你不能把 CRT A 分配的内存交给 CRT B 释放**，这就是问题的根源。所以之后不静态链接到 CRT 就没事了，它们用的都是同一个 `malloc`，`free`。不仅仅是 Windows CRT，对于 Linux 上的 glibc 或者 musl 也是一样的。示例代码放在 [这里](https://github.com/16bit-ykiko/ykiko.me/tree/main/code/crt-fault)，感兴趣的可以自己试试。
 
 ### extern "C"
 

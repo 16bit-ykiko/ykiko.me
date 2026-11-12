@@ -6,7 +6,7 @@ description: Writing or revising a Chinese article (Zhihu post / blog in website
 # Writing a Chinese article as ykiko
 
 Paths below (`website/`, `scripts/`, `FORMAT_SPEC.md`, `drafts/`) are relative to
-his blog repository, `/home/ykiko/workspace/about-me`, wherever the article is
+his blog repository, `/home/ykiko/workspace/ykiko.me`, wherever the article is
 written from.
 
 ykiko reads every draft and spots AI-written prose at once. The goal is that a
