@@ -24,7 +24,7 @@ post (2026-10, 2090994886531100694).
 2. **Facts only from sources**: the project's docs and repo, numbers the user or
    lead gives, or ykiko himself. Ask him when unsure; never fill a gap with a
    plausible detail. A claim you inferred gets flagged to him when you hand over.
-3. **Draft, then lint**: `python3 scripts/md_format.py <file>` (FORMAT_SPEC.md).
+3. **Draft, then lint**: `node scripts/md_format.ts <file>` (FORMAT_SPEC.md).
    Known false positives: project and tool names like `llvm-mingw`, `clang-cl`.
 4. **AI-ism pass by subagents** before every hand-over: two independent
    reviewers, one checking against his articles, one reading as a native Chinese
@@ -129,7 +129,7 @@ over-bulleted prose, a one-line paragraph that only dramatizes the previous one.
 ## Before handing a draft over
 
 - [ ] Every fact traceable to a source; inferences flagged to him.
-- [ ] `scripts/md_format.py` clean apart from known false positives.
+- [ ] `scripts/md_format.ts` clean apart from known false positives.
 - [ ] Two subagent AI-ism passes and a fact-check pass merged; grep for 尾巴, 不是.\*而是, 一律, 从不,
       永远, 恰恰, 悄无声息, 所谓, 服务, 相同的字节, 意味着, 上一篇.
 - [ ] Title promise delivered early; no FAQ or detail list that repeats the body.
@@ -145,18 +145,19 @@ over-bulleted prose, a one-line paragraph that only dramatizes the previous one.
   subtitles is cleaned with Codex image generation
   (`codex exec --skip-git-repo-check -s workspace-write --image=<file> -` with
   the prompt on stdin; `-i` swallows the prompt), then crop black bars.
-- **Column**: `zhihu_cli.py publish` run non-interactively publishes with no
-  column. Pass the column through the client
-  (`ZhihuClient.create_or_update_article(path, article_id=None, column=<ZhihuColumn>)`);
-  clice posts go to 「clice 开发日记」 (`c_1852831599382646784`). An update
-  re-sends `titleImage` from `zhihu_title_image_url` in the front matter, so
-  record the cover URL there before updating.
+- **Column**: `node scripts/zhihu_cli.ts publish <file> --column <id>`;
+  without `--column` the publish request names no column, for
+  `update-article` too. clice posts go to 「clice 开发日记」
+  (`c_1852831599382646784`). An update re-sends `titleImage`
+  from `zhihu_title_image_url` in the front matter, so record the cover URL
+  there before updating.
 - **Rendering quirks**: two code blocks with nothing between them merge into
   one, so put a line of text between; a bare domain (`bazel.clice.io`) is
   auto-linked as `http://`, so write `[x](https://x)`; tables drop bold and
   inline code.
 - **After publishing** he edits on Zhihu himself. Local drafts are not kept;
-  `uv run python scripts/zhihu_cli.py sync` brings the article into
+  `node scripts/zhihu_cli.ts sync` brings the article into
   `website/content/zh-cn/articles/<id>/` (and runs the repo formatters).
-  Verify the live version by fetching it (`fetch_article_html` + `Parser`) and
+  Verify the live version by fetching it (`ZhihuClient.fetchArticleHtml` in
+  `scripts/zhihu_client.ts`, then `Parser` in `scripts/zhihu_parser.ts`) and
   diffing against the draft.

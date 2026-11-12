@@ -13,3 +13,14 @@
 > 果然，不到一个月，这个 API 就被封了，考虑其它解决办法吧。
 
 博客有双语支持，但是考虑到我可能频繁修改文章，所以手动翻译不是一个好的选择。我一直在寻找一个比较靠谱的 AI 翻译来进行文章的批量翻译，但暂时还没有找到。如果找到了之后，可能也会把这些文章发布到 Reddit 上。
+
+## 脚本
+
+`scripts/` 下的工具用 TypeScript 编写，由 Node.js（≥ 26）直接运行，先 `npm ci` 安装依赖：
+
+- `node scripts/zhihu_cli.ts sync`：把知乎上的全部文章同步到 `website/content/zh-cn/articles`，再用 pixi 格式化仓库，CI 每天跑一次
+- `node scripts/zhihu_cli.ts login`：扫码登录知乎，cookie 缓存在 `.cookie/zhihu.yaml`；加上 `--gh-secret ZHIHU_COOKIE` 会同时更新 CI 用的 secret
+- `node scripts/zhihu_cli.ts publish <文件> [--column <专栏 id>]`、`update-article [文件] [--article-id <id>]`、`preview`：发布、更新文章，或者只推送草稿并给出预览链接
+- `node scripts/md_format.ts [--fix] [文件 ...]`：按 [FORMAT_SPEC.md](FORMAT_SPEC.md) 检查（`--fix` 修复）中文排版
+- `node scripts/translate_articles.ts`：手动把改动过的中文文章翻译成英文，调用 Antigravity CLI（`agy`），CI 里不会运行
+- `npm run check`、`npm test`：类型检查和测试

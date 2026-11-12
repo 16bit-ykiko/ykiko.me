@@ -434,6 +434,8 @@
 
 ## 15. 运行模式（Modes）
 
+由 `scripts/md_format.ts` 实现：`node scripts/md_format.ts [--fix] [文件 ...]`，不给文件时检查 `website/content/zh-cn/articles` 下的全部文章。
+
 ### Lint 模式
 
 输出所有违规位置，不修改文件：
