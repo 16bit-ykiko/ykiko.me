@@ -1,5 +1,5 @@
 ---
-name: ykiko-zh-article
+name: write
 description: Writing or revising a Chinese article (Zhihu post / blog in website/content/zh-cn) in ykiko's own voice, or taking the "AI 味" out of a draft. Covers his style, the format spec, the AI-isms he has rejected, and the review loop.
 ---
 
