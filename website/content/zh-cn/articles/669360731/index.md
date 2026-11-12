@@ -31,7 +31,7 @@ Clang 是 LLVM 项目提供的一个 C 语言家族的编译器前端。它最�
 pip install libclang
 ```
 
-什么额外的事情都不用做。本文就基于这个 Python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 [cindex.pyi](https://github.com/16bit-ykiko/ykiko.me/blob/main/code/cindex.pyi)，下载下来之后直接和 放在同一文件夹内就能有代码提示了。
+什么额外的事情都不用做。本文就基于这个 Python binding 的版本进行介绍。C 版本的 API 和 Python 版本的 API 基本是完全一致的，如果你觉得 Python 性能不够，你也可以参考这个教程对照着写 C 版本的代码。另外官方提供的包并没有 type hint，这样的话用 Python 写就没有代码补全，用起来也不舒服。我自己补了一个类型提示的 [cindex.pyi](https://github.com/16bit-ykiko/about-me/blob/main/code/cindex.pyi)，下载下来之后直接和 放在同一文件夹内就能有代码提示了。
 
 ## Quick Start
 
@@ -98,7 +98,7 @@ TRANSLATION_UNIT: main.cpp
 
 ## Basic Types
 
-注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 [为什么说 C/C++ 编译器不保留元信息](https://ykiko.me/zh-cn/articles/670190357/)。下面对 cindex 中的一些常用类型做一些介绍
+注意，本文假定读者对语法树有一定的认识，不在这里做过多介绍了。如果不知道语法树是什么的话，可以看一下 [为什么说 C/C++ 编译器不保留元信息](https://16bit-ykiko.github.io/about-me/670190357)。下面对 cindex 中的一些常用类型做一些介绍
 
 ### Cursor
 
