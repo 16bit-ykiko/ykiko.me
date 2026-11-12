@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  
-  <sitemap>
-    <loc>https://www.ykiko.me/zh-cn/sitemap.xml</loc>
-    
-      <lastmod>2026-10-08T21:01:36+00:00</lastmod>
-    
-  </sitemap>
-  
-  <sitemap>
-    <loc>https://www.ykiko.me/en/sitemap.xml</loc>
-    
-      <lastmod>2026-03-27T14:29:52+00:00</lastmod>
-    
-  </sitemap>
-  
+	
+		<sitemap>
+			<loc>https://www.ykiko.me/zh-cn/sitemap.xml</loc>
+			
+				<lastmod>2026-10-08T21:01:36+00:00</lastmod>
+			
+		</sitemap>
+	
+		<sitemap>
+			<loc>https://www.ykiko.me/en/sitemap.xml</loc>
+			
+				<lastmod>2026-03-27T14:29:52+00:00</lastmod>
+			
+		</sitemap>
+	
 </sitemapindex>

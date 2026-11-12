@@ -13,7 +13,7 @@ This article was translated by AI using Gemini 2.5 Pro from the original Chinese
 In the previous article, we gained a preliminary understanding of the principles of STMP and used it to implement a simple compile-time counter. However, its power extends far beyond that. This article will discuss some advanced applications based on STMP.">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/en/articles/646812253/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e30de8a310003f8338fa43333b47b780b3d7ac442164e4433ba43dc4a4537cd4.css" integrity="sha256-4w3ooxAAP4M4&#43;kMzO0e3gLPXrEQhZORDO6Q9xKRTfNQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dfc3df809ff10c0e501e05576b5d6a64c9adf2cf869e97beeca0f6c97b1c7365.css" integrity="sha256-38PfgJ/xDA5QHgVXa11qZMmt8s&#43;Gnpe&#43;7KD2yXscc2U=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -357,7 +357,7 @@ In the previous article, we gained a preliminary understanding of the principles
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">sorted</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">sort_list</span><span class="o">&lt;</span><span class="n">list</span><span class="o">&gt;::</span><span class="n">result</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">using</span> <span class="n">expected</span> <span class="o">=</span> <span class="n">type_list</span><span class="o">&lt;</span><span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">char</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">,</span> <span class="kt">double</span><span class="p">,</span> <span class="kt">double</span><span class="o">&gt;</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="k">static_assert</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">is_same_v</span><span class="o">&lt;</span><span class="n">sorted</span><span class="p">,</span> <span class="n">expected</span><span class="o">&gt;</span><span class="p">);</span>
-</span></span></code></pre></div><p>All three major compilers compile this successfully with C++20! The code is available on <a href="https://godbolt.org/z/4qW7MhfWP">Compiler Explorer</a>. To prevent link rot, a copy is also available on <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/type-list-sort.cpp">Github</a>.</p>
+</span></span></code></pre></div><p>All three major compilers compile this successfully with C++20! The code is available on <a href="https://godbolt.org/z/4qW7MhfWP">Compiler Explorer</a>. To prevent link rot, a copy is also available on <a href="https://github.com/16bit-ykiko/ykiko.me/blob/main/code/type-list-sort.cpp">Github</a>.</p>
 <blockquote>
 <p>It&rsquo;s worth noting that this bidirectional mapping between types and values has become a built-in language feature in Reflection for C++26. We no longer need to use clever tricks like friend injection; we can directly use the <code>^^</code> and <code>[: :]</code> operators to achieve the mapping. See <a href="https://www.ykiko.me/en/articles/1919923607997518115">Reflection for C++26!!!</a> for details.</p>
 </blockquote>
@@ -484,7 +484,7 @@ In the previous article, we gained a preliminary understanding of the principles
 </span></span></span><span class="line"><span class="cl">    <span class="p">}</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>All three major compilers output the results as we expected! The code is also available on <a href="https://godbolt.org/z/aP3zs7479">Compiler Explorer</a> and <a href="https://github.com/16bit-ykiko/about-me/blob/main/code/the-true-any.cpp">Github</a>.</p>
+</span></span></code></pre></div><p>All three major compilers output the results as we expected! The code is also available on <a href="https://godbolt.org/z/aP3zs7479">Compiler Explorer</a> and <a href="https://github.com/16bit-ykiko/ykiko.me/blob/main/code/the-true-any.cpp">Github</a>.</p>
 <h2 id="conclusion">conclusion<a hidden class="anchor" aria-hidden="true" href="#conclusion">#</a></h2>
 <p>These two articles on STMP fulfill a long-standing wish of mine. Before this, I had been thinking about how to implement a &ldquo;true&rdquo; <code>any</code> type, like the code above, without requiring the user to register types beforehand. I tried many methods, but none succeeded. However, the emergence of STMP gave me hope. After realizing the heights it could reach, I immediately stayed up all night to write the articles and examples.</p>
 <p>Of course, it&rsquo;s not recommended to use this technique in actual projects. Because this kind of code relies heavily on the instantiation location of templates, it can easily lead to ODR violations, and repeated instantiations will significantly increase compilation time. For such stateful code requirements, we can often transform them into stateless code, but pure manual implementation might be extremely laborious. It&rsquo;s more recommended to use code generators for additional code generation to fulfill this requirement. For example, we could use <code>libclang</code> to collect all <code>any</code> instantiation information across compilation units and then generate a corresponding table.</p>
@@ -530,7 +530,7 @@ In the previous article, we gained a preliminary understanding of the principles
     script.src = "https://giscus.app/client.js";
     script.crossOrigin = "anonymous";
     script.async = true;
-    script.setAttribute("data-repo", "16bit-ykiko/about-me");
+    script.setAttribute("data-repo", "16bit-ykiko/ykiko.me");
     script.setAttribute("data-repo-id", "R_kgDOLNvUfQ");
     script.setAttribute("data-category", "Announcements");
     script.setAttribute("data-category-id", "DIC_kwDOLNvUfc4Ckzfl");
@@ -574,22 +574,34 @@ In the previous article, we gained a preliminary understanding of the principles
             menu.scrollLeft = parseInt(scrollPosition, 10);
         }
         
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+        
+        let menuScrollTimeout;
+        menu.addEventListener("scroll", function () {
+            clearTimeout(menuScrollTimeout);
+            menuScrollTimeout = setTimeout(function () {
+                localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+            }, 150);
+        }, { passive: true });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
             var id = this.getAttribute("href").substr(1);
+            const target = document.querySelector(`[id='${decodeURIComponent(id)}']`);
             if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                target.scrollIntoView({
                     behavior: "smooth"
                 });
             } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+                target.scrollIntoView();
             }
+            
+            
+            if (target.tabIndex < 0 && !target.hasAttribute("tabindex")) {
+                target.setAttribute("tabindex", "-1");
+            }
+            target.focus({ preventScroll: true });
             if (id === "top") {
                 history.replaceState(null, null, " ");
             } else {
@@ -601,14 +613,20 @@ In the previous article, we gained a preliminary understanding of the principles
 </script>
 <script>
     var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
+    var scrollTicking = false;
+    
+    window.addEventListener("scroll", function () {
+        if (scrollTicking) {
+            return;
         }
-    };
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+            const scrollThreshold = window.innerHeight;
+            const shown = document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold;
+            toplink.classList.toggle("hidden", !shown);
+            scrollTicking = false;
+        });
+    }, { passive: true });
 
 </script>
 <script>

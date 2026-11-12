@@ -10,7 +10,7 @@
 <meta name="description" content="C&#43;&#43; 的构建问题一直是热门话题，尤其在各种语言论战中，常常被当作反面教材。有趣的是，大多数 C&#43;&#43; 程序员往往是参与到现有系统的维护中，面对的是高度固化、无法改动的构建流程，真正需要从零搭建项目的人反倒是少数。">
 <meta name="author" content="ykiko">
 <link rel="canonical" href="https://www.ykiko.me/zh-cn/articles/1985940996270339378/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.e30de8a310003f8338fa43333b47b780b3d7ac442164e4433ba43dc4a4537cd4.css" integrity="sha256-4w3ooxAAP4M4&#43;kMzO0e3gLPXrEQhZORDO6Q9xKRTfNQ=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.dfc3df809ff10c0e501e05576b5d6a64c9adf2cf869e97beeca0f6c97b1c7365.css" integrity="sha256-38PfgJ/xDA5QHgVXa11qZMmt8s&#43;Gnpe&#43;7KD2yXscc2U=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://www.ykiko.me/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://www.ykiko.me/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://www.ykiko.me/favicon-32x32.png">
@@ -510,7 +510,7 @@
     script.src = "https://giscus.app/client.js";
     script.crossOrigin = "anonymous";
     script.async = true;
-    script.setAttribute("data-repo", "16bit-ykiko/about-me");
+    script.setAttribute("data-repo", "16bit-ykiko/ykiko.me");
     script.setAttribute("data-repo-id", "R_kgDOLNvUfQ");
     script.setAttribute("data-category", "Announcements");
     script.setAttribute("data-category-id", "DIC_kwDOLNvUfc4Ckzfl");
@@ -554,22 +554,34 @@
             menu.scrollLeft = parseInt(scrollPosition, 10);
         }
         
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+        
+        let menuScrollTimeout;
+        menu.addEventListener("scroll", function () {
+            clearTimeout(menuScrollTimeout);
+            menuScrollTimeout = setTimeout(function () {
+                localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+            }, 150);
+        }, { passive: true });
     }
 
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener("click", function (e) {
             e.preventDefault();
             var id = this.getAttribute("href").substr(1);
+            const target = document.querySelector(`[id='${decodeURIComponent(id)}']`);
             if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                target.scrollIntoView({
                     behavior: "smooth"
                 });
             } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+                target.scrollIntoView();
             }
+            
+            
+            if (target.tabIndex < 0 && !target.hasAttribute("tabindex")) {
+                target.setAttribute("tabindex", "-1");
+            }
+            target.focus({ preventScroll: true });
             if (id === "top") {
                 history.replaceState(null, null, " ");
             } else {
@@ -581,14 +593,20 @@
 </script>
 <script>
     var toplink = document.getElementById("top-link");
-    window.onscroll = function () {
-        const scrollThreshold = window.innerHeight;
-        if (document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold) {
-            toplink.classList.remove("hidden");
-        } else {
-            toplink.classList.add("hidden");
+    var scrollTicking = false;
+    
+    window.addEventListener("scroll", function () {
+        if (scrollTicking) {
+            return;
         }
-    };
+        scrollTicking = true;
+        requestAnimationFrame(function () {
+            const scrollThreshold = window.innerHeight;
+            const shown = document.body.scrollTop > scrollThreshold || document.documentElement.scrollTop > scrollThreshold;
+            toplink.classList.toggle("hidden", !shown);
+            scrollTicking = false;
+        });
+    }, { passive: true });
 
 </script>
 <script>
