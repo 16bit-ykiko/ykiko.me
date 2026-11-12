@@ -43,6 +43,7 @@ export function buildPrompt(
     targetLang: string;
     markdown: boolean;
     file: string | null;
+    lines: number;
   },
 ): string {
   const lines = [
@@ -56,8 +57,8 @@ export function buildPrompt(
   if (options.file) {
     lines.push(
       options.markdown
-        ? `Translate the Markdown file ${options.file} in the current folder into the target language.`
-        : `Translate the text in the file ${options.file} in the current folder into the target language, naturally and accurately.`,
+        ? `Translate the Markdown file ${options.file} in the current folder into the target language. It has ${options.lines} lines; read all of them.`
+        : `Translate the text in the file ${options.file} in the current folder into the target language, naturally and accurately. It has ${options.lines} lines; read all of them.`,
     );
     if (options.markdown) {
       lines.push(
@@ -99,10 +100,11 @@ export function parseAnswer(
   names: string[],
 ): Map<string, string> {
   const lines = output.replace(/\r\n?/g, "\n").split("\n");
+  const markers = lines.map((line) => line.trim());
   const result = new Map<string, string>();
   for (const name of names) {
-    const start = lines.lastIndexOf(begin(name));
-    const stop = start === -1 ? -1 : lines.indexOf(end(name), start + 1);
+    const start = markers.lastIndexOf(begin(name));
+    const stop = start === -1 ? -1 : markers.indexOf(end(name), start + 1);
     if (start === -1 || stop === -1) {
       throw new Error(
         `agy's answer has no ${begin(name)} ... ${end(name)} block`,
@@ -113,27 +115,30 @@ export function parseAnswer(
   return result;
 }
 
+// Settles once agy exits: a daemon it leaves behind may keep the output
+// pipes open, so their end is not waited for beyond a short grace period.
 function runAgy(prompt: string, model: string, cwd: string): Promise<string> {
   return new Promise((resolve, reject) => {
     const child = spawn(
       "agy",
       ["-p", prompt, "--model", model, "--print-timeout", PRINT_TIMEOUT],
-      {
-        cwd,
-        stdio: ["ignore", "pipe", "pipe"],
-      },
+      { cwd, stdio: ["ignore", "pipe", "pipe"] },
     );
     const out: Buffer[] = [];
     const err: Buffer[] = [];
     child.stdout.on("data", (chunk: Buffer) => out.push(chunk));
     child.stderr.on("data", (chunk: Buffer) => err.push(chunk));
-    const timer = setTimeout(() => child.kill("SIGTERM"), KILL_AFTER_MS);
-    child.on("error", (error) => {
+    const timer = setTimeout(() => {
+      child.kill("SIGTERM");
+      setTimeout(() => child.kill("SIGKILL"), 10_000).unref();
+    }, KILL_AFTER_MS);
+    let settled = false;
+    const settle = (code: number | null, signal: NodeJS.Signals | null) => {
+      if (settled) return;
+      settled = true;
       clearTimeout(timer);
-      reject(new Error(`Failed to run agy: ${error.message}`));
-    });
-    child.on("close", (code, signal) => {
-      clearTimeout(timer);
+      child.stdout.destroy();
+      child.stderr.destroy();
       if (code === 0) {
         resolve(Buffer.concat(out).toString("utf8"));
         return;
@@ -149,8 +154,38 @@ function runAgy(prompt: string, model: string, cwd: string): Promise<string> {
           `agy exited with ${signal ?? code}${stderr ? `:\n${stderr}` : ""}`,
         ),
       );
+    };
+    child.on("error", (error) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(new Error(`Failed to run agy: ${error.message}`));
+    });
+    child.on("close", settle);
+    child.on("exit", (code, signal) => {
+      setTimeout(() => settle(code, signal), 2000).unref();
     });
   });
+}
+
+// agy reads the file through a tool that shows it in pieces; an answer that
+// lost part of the article still comes back between its markers, so the
+// code fences and headings are counted on both sides.
+export function checkComplete(source: string, translated: string): void {
+  const count = (text: string, re: RegExp): number =>
+    text.split("\n").filter((line) => re.test(line)).length;
+  for (const [what, re] of [
+    ["code fences", /^\s*(```|~~~)/],
+    ["headings", /^#{1,6}\s/],
+  ] as const) {
+    const expected = count(source, re);
+    const got = count(translated, re);
+    if (expected !== got) {
+      throw new Error(
+        `the translation looks incomplete: ${got} ${what} where the article has ${expected}`,
+      );
+    }
+  }
 }
 
 function scratchFolder(): string {
@@ -192,15 +227,20 @@ export class AgyTranslator {
         body === null ? null : options.markdown ? "article.md" : "text.txt";
       if (file !== null)
         writeFileSync(path.join(dir, file), body ?? "", "utf8");
-      const prompt = buildPrompt(fields, { ...options, file });
+      const lines = (body ?? "").split("\n").length;
+      const prompt = buildPrompt(fields, { ...options, file, lines });
       console.error(
         `[agy] translating model=${this.model} (${fields.map((f) => f.name).join(", ")})`,
       );
       const output = await runAgy(prompt, this.model, dir);
-      return parseAnswer(
+      const answer = parseAnswer(
         output,
         fields.map((f) => f.name),
       );
+      if (body !== null && options.markdown) {
+        checkComplete(body, answer.get("BODY")!);
+      }
+      return answer;
     } finally {
       rmSync(dir, { recursive: true, force: true });
     }

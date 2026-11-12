@@ -40,10 +40,14 @@ for (const line of prompt.split("\\n")) {
   if (m) out.push("@@@ BEGIN " + m[1] + " @@@", "EN: " + m[2], "@@@ END " + m[1] + " @@@");
 }
 if (files.includes("article.md")) {
-  const body = fs.readFileSync(path.join(cwd, "article.md"), "utf8").trimEnd();
-  out.push("@@@ BEGIN BODY @@@", ...body.split("\\n").map((l) => (l.trim() ? "EN: " + l : l)), "@@@ END BODY @@@");
+  let lines = fs.readFileSync(path.join(cwd, "article.md"), "utf8").trimEnd().split("\\n");
+  if (process.env.AGY_STUB_MODE === "truncate") lines = lines.slice(0, -1);
+  out.push("@@@ BEGIN BODY @@@", ...lines.map((l) => (l.trim() ? "EN: " + l : l)), "@@@ END BODY @@@");
 }
 out.push("Done.");
+if (process.env.AGY_STUB_MODE === "daemon") {
+  require("node:child_process").spawn(process.execPath, ["-e", "setTimeout(() => {}, 20000)"], { stdio: "inherit", detached: true }).unref();
+}
 console.log(out.join("\\n"));
 `;
 
@@ -197,4 +201,35 @@ test("translate_articles writes en articles: title, /en/ links, New York dates, 
     /translated by AI/i,
   );
   assert.deepEqual(readdirSync(en).sort(), ["111", "222"]);
+});
+
+test("an answer that lost part of the article is not used", async () => {
+  process.env["AGY_STUB_MODE"] = "truncate";
+  try {
+    await assert.rejects(
+      new AgyTranslator().translateMarkdownDocument(
+        "---\ntitle: 标题\n---\n\n正文\n\n## 小节\n",
+        { sourceLang: "zh-CN", targetLang: "English" },
+      ),
+      /incomplete: 0 headings where the article has 1/,
+    );
+  } finally {
+    delete process.env["AGY_STUB_MODE"];
+  }
+});
+
+test("a daemon agy leaves holding its output does not keep the call waiting", async () => {
+  process.env["AGY_STUB_MODE"] = "daemon";
+  const started = Date.now();
+  try {
+    const translated = await new AgyTranslator().translateText("正文", {
+      sourceLang: "zh-CN",
+      targetLang: "English",
+      markdown: true,
+    });
+    assert.equal(translated, "EN: 正文");
+    assert.ok(Date.now() - started < 10_000);
+  } finally {
+    delete process.env["AGY_STUB_MODE"];
+  }
 });
