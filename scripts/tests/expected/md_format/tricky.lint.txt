@@ -1,0 +1,67 @@
+
+[1m=== md_format ===[0m
+Mode: lint  Files: 1  Issues: 62  (auto-fixed: 0  lint-only: 3)
+
+[31m✗[0m tricky.md  (59 fixable, 3 lint-only)
+  [31m[structure][0m:5 标题「#」后应有且仅有一个空格
+  [31m[structure][0m:6 标题「#」后应有且仅有一个空格
+  [31m[structure][0m:7 列表标记符后缺少空格
+  [31m[structure][0m:8 列表标记符后缺少空格
+  [31m[structure][0m:9 列表标记符后缺少空格
+  [31m[spacing][0m:11 缺少空格：「文E」→「文 E」
+  [31m[spacing][0m:11 缺少空格：「h混」→「h 混」
+  [31m[spacing][0m:11 缺少空格：「字8」→「字 8」
+  [31m[spacing][0m:11 缺少空格：「B和」→「B 和」
+  [31m[spacing][0m:11 缺少空格：「和3」→「和 3」
+  [31m[spacing][0m:11 缺少空格：「7是」→「7 是」
+  [31m[spacing][0m:11 缺少空格：「4好」→「4 好」
+  [31m[spacing][0m:11 「8GB」→「8 GB」
+  [31m[spacing][0m:11 「%」前不应有空格
+  [31m[spacing][0m:11 「°」前不应有空格
+  [31m[spacing][0m:12 「用」与 code 之间缺少空格
+  [31m[spacing][0m:12 code 与「和」之间缺少空格
+  [31m[spacing][0m:12 「和」与 link 之间缺少空格
+  [31m[spacing][0m:12 link 与「以」之间缺少空格
+  [31m[spacing][0m:12 「及」与 image 之间缺少空格
+  [31m[quote][0m:12 「」替换弯引号
+  [31m[quote][0m:12 『』替换弯引号
+  [31m[punct][0m:13 「...」→「……」
+  [31m[punct][0m:13 「--」→「——」
+  [31m[punct][0m:13 重复标点「，，」→「，」
+  [31m[punct][0m:13 重复标点「。。」→「。」
+  [31m[punct][0m:13 重复标点「,,」→「,」
+  [31m[spacing][0m:14 缺少空格：「c和」→「c 和」
+  [31m[spacing][0m:14 缺少空格：「和c」→「和 c」
+  [31m[spacing][0m:14 缺少空格：「和g」→「和 g」
+  [31m[spacing][0m:14 缺少空格：「及G」→「及 G」
+  [31m[spacing][0m:14 缺少空格：「u和」→「u 和」
+  [31m[spacing][0m:14 缺少空格：「和a」→「和 a」
+  [31m[noun][0m:14 「clang++」→「`clang++`」
+  [31m[noun][0m:14 「Github」→「GitHub」
+  [31m[noun][0m:14 「macos」→「macOS」
+  [31m[noun][0m:14 「gcc」→「GCC」
+  [31m[noun][0m:14 「cpu」→「CPU」
+  [31m[noun][0m:14 「api」→「API」
+  [31m[noun][0m:14 「g++」→「`g++`」
+  [31m[typo][0m:15 「登陆」→「登录」
+  [31m[typo][0m:15 「帐号」→「账号」
+  [31m[typo][0m:15 「其它」→「其他」
+  [31m[typo][0m:15 「粘帖」→「粘贴」
+  [31m[fullwidth][0m:16 全角字符「０」→半角
+  [31m[fullwidth][0m:16 全角字符「１」→半角
+  [31m[fullwidth][0m:16 全角字符「２」→半角
+  [31m[fullwidth][0m:16 全角字符「Ａ」→半角
+  [31m[fullwidth][0m:16 全角字符「Ｂ」→半角
+  [31m[fullwidth][0m:16 全角字符「Ｃ」→半角
+  [31m[fullwidth][0m:16 全角字符「ａ」→半角
+  [31m[fullwidth][0m:16 全角字符「ｂ」→半角
+  [31m[fullwidth][0m:16 全角字符「ｃ」→半角
+  [31m[spacing][0m:16 缺少空格：「角0」→「角 0」
+  [31m[spacing][0m:16 「2ABCabc」→「2 ABCabc」
+  [31m[spacing][0m:17 缺少空格：「文E」→「文 E」
+  [31m[spacing][0m:18 缺少空格：「文t」→「文 t」
+  [33m[punct][0m:18 中文语境下「h,」后应用中文标点
+  [33m[punct][0m:18 中文语境下「t.」后应用中文标点
+  [33m[code_block][0m:20 代码块未声明语言（如 ```python）
+  [31m[structure][0m 连续空行已压缩
+  [31m[structure][0m 连续空行已压缩
