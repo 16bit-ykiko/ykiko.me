@@ -1,7 +1,7 @@
 baseURL = "https://www.ykiko.me"
 theme = "PaperMod"
 
-defaultContentLanguage = "zh-cn"
+defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = true
 
 enableRobotsTXT = true
