@@ -121,7 +121,10 @@ jobs:
       - name: Build
         run: |
           cd website
-          git clone https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod --depth=1
+          # Pinned together with hugo-version: PaperMod's master raises the Hugo it needs.
+          git init -q themes/PaperMod
+          git -C themes/PaperMod fetch -q --depth=1 https://github.com/adityatelange/hugo-PaperMod.git 118119693d8b5ac211b939775678310973bcb232
+          git -C themes/PaperMod checkout -q FETCH_HEAD
           hugo
 
       - name: Deploy
