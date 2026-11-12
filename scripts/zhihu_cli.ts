@@ -35,9 +35,12 @@ function buildClient(): Promise<ZhihuClient> {
   return ZhihuClient.fromEnvOrCache({ allowLogin: false });
 }
 
-async function syncArticles(client: ZhihuClient): Promise<void> {
+async function syncArticles(
+  client: ZhihuClient,
+  only: string[],
+): Promise<void> {
   const delaySeconds = Number(process.env["ZHIHU_DELAY_SECONDS"] ?? "0");
-  await client.syncArticles(ZH_ARTICLES, delaySeconds);
+  await client.syncArticles(ZH_ARTICLES, delaySeconds, only);
   runMarkdownFormat();
 }
 
@@ -142,6 +145,7 @@ function buildProgram(): Command {
       "after",
       "\nExamples:\n" +
         "  node scripts/zhihu_cli.ts sync\n" +
+        "  node scripts/zhihu_cli.ts sync 2069934520514749368\n" +
         "  node scripts/zhihu_cli.ts login --gh-secret ZHIHU_COOKIE\n" +
         "  node scripts/zhihu_cli.ts publish path/to/article.md --column c_1852831599382646784\n" +
         "  node scripts/zhihu_cli.ts update-article --article-id 2090994886531100694\n",
@@ -149,8 +153,11 @@ function buildProgram(): Command {
 
   program
     .command("sync")
-    .description("Sync all Zhihu articles into the website content directory.")
-    .action(async () => syncArticles(await buildClient()));
+    .description(
+      "Sync Zhihu articles into the website content directory: all, or the ids given.",
+    )
+    .argument("[article_ids...]", "only these articles")
+    .action(async (ids: string[]) => syncArticles(await buildClient(), ids));
 
   program
     .command("login")

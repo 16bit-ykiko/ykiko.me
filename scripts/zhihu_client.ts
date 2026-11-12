@@ -663,14 +663,21 @@ export class ZhihuClient {
     return null;
   }
 
-  async syncArticles(outputDir: string, delaySeconds = 0): Promise<void> {
-    const articles = await this.listArticles();
+  // `only`: just these articles; every other one stays as it is on disk.
+  async syncArticles(
+    outputDir: string,
+    delaySeconds = 0,
+    only: readonly string[] = [],
+  ): Promise<void> {
+    const listed = await this.listArticles();
+    const missing = only.filter((id) => !listed.some((a) => a.id === id));
+    if (missing.length > 0)
+      throw new Error(`Not among your articles: ${missing.join(", ")}`);
+    const articles =
+      only.length > 0 ? listed.filter((a) => only.includes(a.id)) : listed;
     const total = articles.length;
     Parser.urlsMap = new Map(
-      articles.map((a) => [
-        a.url,
-        `https://www.ykiko.me/zh-cn/articles/${a.id}`,
-      ]),
+      listed.map((a) => [a.url, `https://www.ykiko.me/zh-cn/articles/${a.id}`]),
     );
     const parser = new Parser();
 
