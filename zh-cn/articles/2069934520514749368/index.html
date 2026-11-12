@@ -87,7 +87,7 @@
   <meta property="og:type" content="article">
     <meta property="article:section" content="articles">
     <meta property="article:published_time" content="2026-08-09T23:57:32+00:00">
-    <meta property="article:modified_time" content="2026-08-12T10:42:55+00:00">
+    <meta property="article:modified_time" content="2026-11-13T01:40:36+00:00">
       <meta property="og:image" content="https://www.ykiko.me/zh-cn/articles/2069934520514749368/featured.png">
 
   <meta name="twitter:card" content="summary_large_image">
@@ -130,7 +130,7 @@
   "wordCount" : "9366",
   "inLanguage": "zh-cn",
   "image": "https://www.ykiko.me/zh-cn/articles/2069934520514749368/featured.png","datePublished": "2026-08-09T23:57:32Z",
-  "dateModified": "2026-08-12T10:42:55Z",
+  "dateModified": "2026-11-13T01:40:36Z",
   "author":{
     "@type": "Person",
     "name": "ykiko"
@@ -206,7 +206,7 @@
     <h1 class="post-title entry-hint-parent">
       语言服务器之外
     </h1>
-    <div class="post-meta"><span title='2026-08-09 23:57:32 +0000 UTC'>2026-08-09</span>&nbsp;·&nbsp;<span>更新于 2026-08-12</span>&nbsp;·&nbsp;<span>19 min</span>&nbsp;·&nbsp;<span>9366 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
+    <div class="post-meta"><span title='2026-08-09 23:57:32 +0000 UTC'>2026-08-09</span>&nbsp;·&nbsp;<span>更新于 2026-11-13</span>&nbsp;·&nbsp;<span>19 min</span>&nbsp;·&nbsp;<span>9366 words</span>&nbsp;·&nbsp;<span>ykiko</span>&nbsp;|&nbsp;<span>Translations:</span>
     <ul class="i18n_list">
         <li>
             <a href="https://www.ykiko.me/en/articles/2069934520514749368/">English</a>
@@ -288,7 +288,6 @@
 <p>前面提到 C++ 的工具生态十分琐碎，需要自己组装大量工具才能有一个还算可以的体验。clice 处在一个巧妙的交叉位置上，一方面它通过源码集成 Clang 提供了语义分析的能力，另一方面实现了一个编译调度器又具备了部分构建系统（后端）的能力，从而能提供开箱即用的丰富的功能。不仅是功能丰富，连性能也可以更上一层楼。比如根据我的统计 clang-tidy 大概 10% 的时间在 parse，90% 的时间在 checks，而头文件这种复制粘贴的复用方式，导致里面的代码被不同的源文件重复检查了非常多次。但无论是 clang-tidy 还是构建系统对此都无能无力，因为它本质上需要一种跨 TU 的实时分析，要求不同分析进程之间可以互相通信，在过去完全分离的模型下想要实现这个很困难。但是对于 clice 来说就很简单，本身就是 master-worker 的架构，只需要子进程将 check 后的声明信息发送给主进程缓存，其他进程就能跳过这些缓存，从而大大加速 clang-tidy，快 3-5 倍不是幻想。clice 也将成为统一 C++ 工具链生态上前进的一小步。</p>
 <p>这就是 clice 这个项目的新的愿景，这样一来，即使写代码的不再是人类，那么作为 agent 使用的工具，它也可以发挥其价值。更遥远的价值就无法确定了，我无法想象 AGI 如果真的实现会怎么样……</p>
 <h2 id="新的领域">新的领域<a hidden class="anchor" aria-hidden="true" href="#新的领域">#</a></h2>
-<p><img alt="前几周也是终于拿到了学位证书，从学校毕业了" loading="lazy" src="https://pic1.zhimg.com/v2-4e18af68c7c19d9ad6e2eac6a768ad98_r.jpg"></p>
 <p>我想起来去年的这个时候我还在纠结未来应该从事什么方向工作。如上图所示，我本科专业是化学，所以所有的编程知识都是我自学的。因为一些原因，主要是高中的时候同样是自学参加化学竞赛，没有取得我预期的结果，所以我对化学其实没太大兴趣了。但是转专业的话，课内成绩太差也是有一些困难，所以的话我就按照自己的兴趣来自学编程。自学的路径大概是这样的：</p>
 <ul>
 <li>大一：我是从 C 语言开始学习的，最开始跟着教程下载了 visual studio 然后编写一些命令行程序。但是这太无聊了，大部分人在学习编程之前对编程的想象肯定是编写一些图形界面，因此我后面了解到可以通过 easyx 这一图形库实现绘图，于是我就尝试基于此编写一些小游戏。最后失败了，因为 C 语言缺乏数据结构抽象，于是我又得跟着教程写数据结构，vector/list 这种，当时我应该写出来了，但是很多 BUG。后面我又开始学习 QT，因为 QT 本身提供更丰富的绘图功能，而且还有标准库我可以不用自己从头搓轮子。然后我就基于 QT 写了一些小游戏，比如一个象棋游戏，但是一个人怎么下象棋？我就想给它添加网络联机功能，于是开始学习研究 socket 编程，UDP/TCP，多线程编程。还花很大功夫租了个云服务器，最后的话让朋友帮忙测试，成功远程联机了，不过游戏没继续做完。</li>
