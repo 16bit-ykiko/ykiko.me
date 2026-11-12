@@ -161,11 +161,11 @@
     </h2>
   </header>
   <div class="entry-content">
-    <p> This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.
-It’s been several months since my last blog post. The reason for this long hiatus is that I’ve been busy working on clice – a brand new C&#43;&#43; language server.
+    <p>It’s been several months since my last blog post. The reason for this long hiatus is that I’ve been busy working on clice – a brand new C&#43;&#43; language server.
+Some readers might be unfamiliar with the concept of a language server. However, you’ve certainly used IDEs like Visual Studio or CLion and experienced features such as code completion, navigation, and refactoring. In traditional IDEs, these features were implemented by IDE plugins or built-in functionalities. This approach meant that each language required separate support development for every editor, leading to high maintenance costs. When Microsoft released Visual Studio Code, they aimed to solve this problem and thus introduced the LSP (Language Server Protocol) concept. LSP proposes a standard client-server model. Language features are provided by an independent language server, and VSCode only needs to implement a generic client to communicate with it. This method decouples the editor from language support, allowing VSCode to easily support multiple languages. For example, if you want to view the implementation of a method, your editor will send a go to implementation request to the language server. The specific content of this request might include the file path and the current cursor position in the source file. The language server processes this request and returns a file location and coordinates, which the editor then uses to open the corresponding file and navigate.
 ...</p>
   </div>
-  <footer class="entry-footer"><span title='2024-12-18 13:46:01 +0000 UTC'>2024-12-18</span>&nbsp;·&nbsp;<span>Updated 2025-11-27</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>3492 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
+  <footer class="entry-footer"><span title='2024-12-18 13:46:01 +0000 UTC'>2024-12-18</span>&nbsp;·&nbsp;<span>Updated 2025-11-27</span>&nbsp;·&nbsp;<span>7 min</span>&nbsp;·&nbsp;<span>3473 words</span>&nbsp;·&nbsp;<span>ykiko</span></footer>
   <a class="entry-link" aria-label="post link to Design and Implementation of a New C&#43;&#43; Language Server" href="https://www.ykiko.me/en/articles/13394352064/"></a>
 </article>
     </main>

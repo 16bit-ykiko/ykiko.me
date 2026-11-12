@@ -13,10 +13,8 @@
       <link>https://www.ykiko.me/en/articles/13394352064/</link>
       <pubDate>Wed, 18 Dec 2024 13:46:01 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/13394352064/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;It&amp;rsquo;s been several months since my last blog post. The reason for this long hiatus is that I&amp;rsquo;ve been busy working on &lt;a href=&#34;https://github.com/clice-project/clice&#34;&gt;clice&lt;/a&gt; – a brand new C++ language server.&lt;/p&gt;</description>
+      <description>&lt;p&gt;It&amp;rsquo;s been several months since my last blog post. The reason for this long hiatus is that I&amp;rsquo;ve been busy working on &lt;a href=&#34;https://github.com/clice-project/clice&#34;&gt;clice&lt;/a&gt; – a brand new C++ language server.&lt;/p&gt;
+&lt;p&gt;Some readers might be unfamiliar with the concept of a language server. However, you&amp;rsquo;ve certainly used IDEs like Visual Studio or CLion and experienced features such as code completion, navigation, and refactoring. In traditional IDEs, these features were implemented by IDE plugins or built-in functionalities. This approach meant that each language required separate support development for every editor, leading to high maintenance costs. When Microsoft released Visual Studio Code, they aimed to solve this problem and thus introduced the &lt;a href=&#34;https://microsoft.github.io/language-server-protocol/&#34;&gt;LSP (Language Server Protocol)&lt;/a&gt; concept. LSP proposes a standard client-server model. Language features are provided by an independent language server, and VSCode only needs to implement a generic client to communicate with it. This method decouples the editor from language support, allowing VSCode to easily support multiple languages. For example, if you want to view the &lt;code&gt;implementation&lt;/code&gt; of a &lt;code&gt;method&lt;/code&gt;, your editor will send a &lt;code&gt;go to implementation&lt;/code&gt; request to the language server. The specific content of this request might include the file path and the current cursor position in the source file. The language server processes this request and returns a file location and coordinates, which the editor then uses to open the corresponding file and navigate.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

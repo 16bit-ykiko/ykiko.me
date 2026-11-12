@@ -13,10 +13,7 @@
       <link>https://www.ykiko.me/en/articles/683463723/</link>
       <pubDate>Thu, 22 Feb 2024 14:15:32 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/683463723/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Prequel: &lt;a href=&#34;https://www.ykiko.me/en/articles/682031684&#34;&gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
+      <description>&lt;p&gt;Prequel: &lt;a href=&#34;https://www.ykiko.me/en/articles/682031684&#34;&gt;The History of constexpr in C++! (Part One)&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;2015-2016-syntactic-sugar-for-templates&#34;&gt;2015-2016: Syntactic Sugar for Templates&lt;/h2&gt;
 &lt;p&gt;In C++, there are many templates that support &lt;a href=&#34;https://en.cppreference.com/w/cpp/language/template_specialization&#34;&gt;full specialization&lt;/a&gt;, but not many that support &lt;a href=&#34;https://en.cppreference.com/w/cpp/language/partial_specialization&#34;&gt;partial specialization&lt;/a&gt;. In fact, only class templates and variable templates support it. Variable templates can actually be seen as syntactic sugar for class templates, so rounding it up, only class templates truly support partial specialization. The lack of partial specialization can make some code very difficult to write.&lt;/p&gt;</description>
     </item>
@@ -25,10 +22,8 @@
       <link>https://www.ykiko.me/en/articles/682031684/</link>
       <pubDate>Sat, 10 Feb 2024 15:15:47 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/682031684/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;A few months ago, I wrote an article introducing C++ templates: &lt;a href=&#34;https://www.ykiko.me/en/articles/655902377&#34;&gt;Looking at Flowers in a Fog: A True Understanding of C++ Templates&lt;/a&gt;.&lt;/p&gt;</description>
+      <description>&lt;p&gt;A few months ago, I wrote an article introducing C++ templates: &lt;a href=&#34;https://www.ykiko.me/en/articles/655902377&#34;&gt;Looking at Flowers in a Fog: A True Understanding of C++ Templates&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;It clarified the position of templates in modern C++. Among the changes, using constexpr functions to replace templates for compile-time computation is arguably one of the most important improvements in modern C++. &lt;code&gt;constexpr&lt;/code&gt; itself is not difficult to understand; it&amp;rsquo;s very intuitive. However, because it has been improved in almost every version of C++, the features available in different C++ versions vary greatly, which can sometimes give a feeling of &lt;code&gt;inconsistency&lt;/code&gt;.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

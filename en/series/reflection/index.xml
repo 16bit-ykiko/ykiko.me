@@ -13,10 +13,7 @@
       <link>https://www.ykiko.me/en/articles/670191053/</link>
       <pubDate>Sun, 03 Dec 2023 15:40:52 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/670191053/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;static-and-dynamic&#34;&gt;Static and Dynamic&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;static-and-dynamic&#34;&gt;Static and Dynamic&lt;/h2&gt;
 &lt;p&gt;The terms static typing and dynamic typing are probably familiar to everyone. The key to distinguishing between them lies in the timing of type checking. What does that mean?&lt;/p&gt;</description>
     </item>
     <item>
@@ -24,31 +21,32 @@
       <link>https://www.ykiko.me/en/articles/670190357/</link>
       <pubDate>Sun, 03 Dec 2023 15:37:51 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/670190357/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;first-what-is-metadata&#34;&gt;First, what is metadata?&lt;/h2&gt;
-&lt;p&gt;Consider the following &lt;code&gt;python&lt;/code&gt; code. We want to automatically modify the corresponding field value based on the input string.&lt;/p&gt;</description>
+      <description>&lt;h2 id=&#34;first-what-is-metadata&#34;&gt;First, what is metadata?&lt;/h2&gt;
+&lt;p&gt;Consider the following &lt;code&gt;python&lt;/code&gt; code. We want to automatically modify the corresponding field value based on the input string.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;nc&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;fm&#34;&gt;__init__&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;age&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;bp&#34;&gt;self&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;Person&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xiaohong&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;setattr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;age&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;setattr&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;name&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;xiaoming&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;sa&#34;&gt;f&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;name: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;, age: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;person&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;age&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;# =&amp;gt; name: xiaoming, age: 12&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;setattr&lt;/code&gt; is a built-in &lt;code&gt;python&lt;/code&gt; function that perfectly meets our needs. It modifies the corresponding value based on the input field name.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Master your C&#43;&#43; code with Clang tools.</title>
       <link>https://www.ykiko.me/en/articles/669360731/</link>
       <pubDate>Wed, 29 Nov 2023 01:14:27 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/669360731/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Clang is a C-language family compiler frontend provided by the LLVM project. It was originally developed to replace the C language frontend of the GNU Compiler Collection (GCC), with the goal of providing faster compilation speeds, better diagnostic information, and a more flexible architecture. Clang includes C, C++, and Objective-C compiler frontends, which are designed to be embedded in other projects. A key feature of Clang is its modular architecture, which makes it easier for developers to extend and customize compiler functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Clang is a C-language family compiler frontend provided by the LLVM project. It was originally developed to replace the C language frontend of the GNU Compiler Collection (GCC), with the goal of providing faster compilation speeds, better diagnostic information, and a more flexible architecture. Clang includes C, C++, and Objective-C compiler frontends, which are designed to be embedded in other projects. A key feature of Clang is its modular architecture, which makes it easier for developers to extend and customize compiler functionality. Clang is widely used in many projects, including LLVM itself, the development of some operating system kernels, and the implementation of compilers for some programming languages.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Various approaches to code generation</title>
       <link>https://www.ykiko.me/en/articles/669359855/</link>
       <pubDate>Wed, 29 Nov 2023 01:14:16 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/669359855/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;
 &lt;p&gt;Let&amp;rsquo;s take a recent requirement as an introduction. We all know that Markdown can use &lt;code&gt;lang&lt;/code&gt; to fill in code blocks and supports code highlighting. However, I wanted to support my own custom code highlighting rules and encountered the following problems:&lt;/p&gt;</description>
     </item>
     <item>
@@ -56,10 +54,7 @@
       <link>https://www.ykiko.me/en/articles/669358870/</link>
       <pubDate>Wed, 29 Nov 2023 01:14:02 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/669358870/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;h2 id=&#34;what-is-reflection&#34;&gt;What is Reflection?&lt;/h2&gt;
+      <description>&lt;h2 id=&#34;what-is-reflection&#34;&gt;What is Reflection?&lt;/h2&gt;
 &lt;p&gt;The term Reflection is probably not new to anyone; perhaps you haven&amp;rsquo;t used it, but you&amp;rsquo;ve certainly heard of it. However, like many other &lt;strong&gt;idiomatic terms&lt;/strong&gt; in the CS field, there isn&amp;rsquo;t a clear and precise definition for reflection. This leads to a situation where, for languages like C#, Java, and Python that have reflection, discussing it naturally brings to mind related facilities, APIs, and code examples in those languages, making it very concrete. But for languages like C, C++, and Rust, which don&amp;rsquo;t have reflection, when reflection is discussed, people are often unsure what the other person is referring to, making it very abstract. For example, someone might tell me that Rust has reflection, and the example they provide is the introduction to &lt;a href=&#34;https://doc.rust-lang.org/stable/std/any/index.html&#34;&gt;std::Any module&lt;/a&gt; in Rust&amp;rsquo;s official documentation. It mentions:&lt;/p&gt;</description>
     </item>
     <item>
@@ -67,10 +62,7 @@
       <link>https://www.ykiko.me/en/articles/661692275/</link>
       <pubDate>Mon, 16 Oct 2023 18:38:26 +0000</pubDate>
       <guid>https://www.ykiko.me/en/articles/661692275/</guid>
-      <description>&lt;blockquote&gt;
-&lt;p&gt;This article was translated by AI using Gemini 2.5 Pro from the original Chinese version. Minor inaccuracies may remain.&lt;/p&gt;
-&lt;/blockquote&gt;
-&lt;p&gt;Recently, I&amp;rsquo;ve been planning to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has a new reflection proposal, and I noticed there aren&amp;rsquo;t many related articles on Zhihu, despite this topic being frequently discussed. So, I&amp;rsquo;m taking this opportunity to talk about static reflection in C++, as a warm-up for the series.&lt;/p&gt;</description>
+      <description>&lt;p&gt;Recently, I&amp;rsquo;ve been planning to write a series of articles discussing the concept of reflection in detail. Coincidentally, C++26 has a new reflection proposal, and I noticed there aren&amp;rsquo;t many related articles on Zhihu, despite this topic being frequently discussed. So, I&amp;rsquo;m taking this opportunity to talk about static reflection in C++, as a warm-up for the series.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
