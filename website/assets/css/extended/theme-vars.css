@@ -1,0 +1,27 @@
+/* PaperMod's colours run near-white on near-black and near-black on pure
+   white, which glares on a phone: both themes a step softer. */
+:root {
+  --theme: rgb(246, 245, 241);
+  --entry: rgb(251, 250, 247);
+  --primary: rgb(40, 40, 40);
+  --secondary: rgb(112, 112, 112);
+  --tertiary: rgb(222, 220, 214);
+  --content: rgb(52, 52, 52);
+  --code-bg: rgb(237, 235, 229);
+  --border: rgb(230, 228, 222);
+}
+:root[data-theme="dark"] {
+  --theme: rgb(22, 23, 25);
+  --entry: rgb(32, 33, 36);
+  --primary: rgb(204, 204, 205);
+  --secondary: rgb(138, 139, 141);
+  --tertiary: rgb(58, 59, 62);
+  --content: rgb(176, 176, 178);
+  --code-block-bg: rgb(32, 33, 36);
+  --code-bg: rgb(42, 43, 47);
+  --border: rgb(44, 45, 48);
+}
+[data-theme="dark"] .post-content img,
+[data-theme="dark"] .entry-cover img {
+  filter: brightness(0.85);
+}
