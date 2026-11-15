@@ -295,7 +295,11 @@ function tightenListItems(html: string): string {
     const only = content[0];
     if (content.length !== 1 || !(only instanceof Element) || only.name !== "p")
       continue;
-    for (const child of [...only.children]) insertAfter(only, child);
+    let anchor: Node = only;
+    for (const child of [...only.children]) {
+      insertAfter(anchor, child);
+      anchor = child;
+    }
     only.extract();
   }
   return decodeContents(root);

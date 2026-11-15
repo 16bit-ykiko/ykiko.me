@@ -94,3 +94,10 @@ test("a figure stays in its ordered list item", () => {
     '<ol><li><p>a</p><figure data-size="normal"><img data-caption="p" data-size="normal" src="https://x/p.png"/></figure></li><li>b</li></ol>',
   );
 });
+
+test("a loose list item keeps its inline content in order", () => {
+  assert.equal(
+    markdownToHtml("- a `b` **c** d\n\n- e\n"),
+    "<ul><li>a <code>b</code> <strong>c</strong> d</li><li>e</li></ul>",
+  );
+});
