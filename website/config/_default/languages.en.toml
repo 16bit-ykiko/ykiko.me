@@ -2,6 +2,9 @@ languageCode = "en"
 languageName = "English"
 weight = 1
 title = "ykiko's blog"
+# Front matter dates are New York time, as the translation writes them;
+# unzoned, Hugo reads them as UTC.
+timeZone = "America/New_York"
 
 [params]
 languageAltTitle = "EN"

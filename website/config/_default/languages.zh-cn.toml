@@ -2,6 +2,9 @@ languageCode = "zh-CN"
 languageName = "简体中文"
 weight = 2
 title = "ykiko's blog"
+# Front matter dates are Shanghai time, as synced from Zhihu; unzoned, Hugo
+# reads them as UTC and leaves out a post less than eight hours old.
+timeZone = "Asia/Shanghai"
 
 [params]
 languageAltTitle = "中"
