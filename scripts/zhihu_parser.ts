@@ -318,6 +318,9 @@ export class Parser {
       if (src !== undefined) break;
     }
     if (src === undefined) throw new Error("Image src not found");
+    // A GIF's data-original is its still frame; the animation is the same
+    // name with .gif.
+    if (img.attr("src")?.endsWith(".gif")) src = src.replace(/\.jpg$/, ".gif");
     const figcaption = element.find("figcaption");
     return new md.Image(
       figcaption ? figcaption.text : "",

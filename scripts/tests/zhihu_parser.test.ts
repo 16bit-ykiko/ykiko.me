@@ -71,3 +71,16 @@ test("a string of whitespace between inline elements collapses to one space", ()
   );
   assert.equal(doc.dump(), "`a` `b`");
 });
+
+test("a GIF keeps its animation, not the still frame in data-original", () => {
+  const doc = new Parser().parseBody(
+    parseHtml(
+      '<figure><img src="https://pic2.zhimg.com/v2-a_1440w.gif" data-thumbnail="https://pic2.zhimg.com/v2-a_b.jpg" data-original="https://pic2.zhimg.com/v2-a_r.jpg"/><figcaption>cap</figcaption></figure>' +
+        '<figure><img src="https://pic2.zhimg.com/v2-b_1440w.jpg" data-original="https://pic2.zhimg.com/v2-b_r.jpg"/><figcaption>still</figcaption></figure>',
+    ),
+  );
+  assert.equal(
+    doc.dump(),
+    "![cap](https://pic2.zhimg.com/v2-a_r.gif)\n\n![still](https://pic2.zhimg.com/v2-b_r.jpg)",
+  );
+});
