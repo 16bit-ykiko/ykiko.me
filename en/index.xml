@@ -6,8 +6,15 @@
     <description>Recent content on ykiko&#39;s blog</description>
     <generator>Hugo</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 08 Oct 2026 09:01:36 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 15 Nov 2026 10:04:18 +0000</lastBuildDate>
     <atom:link href="https://www.ykiko.me/en/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>clice v1.0 Released: Welcome to Modern C&#43;&#43;</title>
+      <link>https://www.ykiko.me/en/articles/2105384023094834022/</link>
+      <pubDate>Sun, 15 Nov 2026 10:04:18 +0000</pubDate>
+      <guid>https://www.ykiko.me/en/articles/2105384023094834022/</guid>
+      <description>&lt;p&gt;&lt;a href=&#34;https://github.com/clice-io/clice&#34;&gt;clice&lt;/a&gt; recently hit 1,000 commits, a special milestone for the project. Since July 19, 2026, clice has been shipping nightly builds and going through roughly four months of alpha testing, with a huge number of bugs fixed thanks to real-world feedback from early users. Over the same stretch, I built a rigorous testing system for clice and ran extensive tests across many real open-source projects, tracking down and fixing the issues they uncovered. What does that mean? Every core feature is now stable, and you rarely run into problems in day-to-day use. So I think the time is right to ship the first stable release. The project looks very different today from where it stood two years ago in &lt;a href=&#34;https://www.ykiko.me/en/articles/13394352064&#34;&gt;Design and Implementation of a New C++ Language Server&lt;/a&gt;, and this is probably the first time I&amp;rsquo;m promoting it widely, so please let me introduce it to you once again! This is the project I have poured the past &lt;strong&gt;two and a half years&lt;/strong&gt; into, the work I am proudest of, the one that has excited me the most and left me sad and anxious more times than I can count, and the most ambitious thing I have taken on in my short life.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Starting with import std: Modern C&#43;&#43; Toolchain Best Practices</title>
       <link>https://www.ykiko.me/en/articles/2090994886531100694/</link>
