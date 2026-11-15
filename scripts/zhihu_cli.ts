@@ -102,10 +102,12 @@ async function findColumn(
   return column;
 }
 
+// `optional`: no article id is needed (a preview makes a draft).
 async function resolveArticle(
   command: Command,
   markdownPathArg: string,
   articleIdOption: string,
+  optional = false,
 ): Promise<{ markdownPath: string; articleId: string }> {
   let articleId = strip(articleIdOption);
   let rawPath = strip(markdownPathArg);
@@ -123,7 +125,7 @@ async function resolveArticle(
     const [metadata] = readMarkdownDocument(markdownPath);
     articleId = strip(metadataString(metadata, "zhihu_article_id"));
   }
-  if (!articleId) {
+  if (!articleId && !optional) {
     throw new Error(
       "No article id provided. Use --article-id or add zhihu_article_id to front matter.",
     );
@@ -131,10 +133,16 @@ async function resolveArticle(
   return { markdownPath, articleId };
 }
 
+function coverPath(cover: string | undefined): string | null {
+  return cover ? requireFile(cover) : null;
+}
+
 const MARKDOWN_PATH_HELP =
   "Path to the markdown file. Defaults to website/content/zh-cn/articles/<article-id>/index.md.";
 const COLUMN_HELP =
   "Zhihu column id to publish into, e.g. c_1852831599382646784. Without it, no column.";
+const COVER_HELP =
+  "An image on disk to upload as the title image; recorded in the front matter as zhihu_title_image_url.";
 
 function buildProgram(): Command {
   const program = new Command("zhihu_cli.ts")
@@ -196,19 +204,26 @@ function buildProgram(): Command {
     .description("Publish a local markdown file as a new Zhihu article.")
     .argument("<markdown_path>")
     .option("--column <id>", COLUMN_HELP, "")
-    .action(async (markdownPathArg: string, opts: { column: string }) => {
-      const client = await buildClient();
-      const markdownPath = requireFile(markdownPathArg);
-      const column = await findColumn(client, strip(opts.column));
-      const articleId = await client.createOrUpdateArticle(
-        markdownPath,
-        null,
-        column,
-      );
-      console.log(
-        `Published new article: https://zhuanlan.zhihu.com/p/${articleId}`,
-      );
-    });
+    .option("--cover <path>", COVER_HELP)
+    .action(
+      async (
+        markdownPathArg: string,
+        opts: { column: string; cover?: string },
+      ) => {
+        const client = await buildClient();
+        const markdownPath = requireFile(markdownPathArg);
+        const column = await findColumn(client, strip(opts.column));
+        const articleId = await client.createOrUpdateArticle(
+          markdownPath,
+          null,
+          column,
+          coverPath(opts.cover),
+        );
+        console.log(
+          `Published new article: https://zhuanlan.zhihu.com/p/${articleId}`,
+        );
+      },
+    );
 
   program
     .command("update-article")
@@ -224,10 +239,11 @@ function buildProgram(): Command {
       "Zhihu column id to publish into; defaults to zhihu_column_id in the front matter.",
     )
     .option("--no-column", "Publish without a column.")
+    .option("--cover <path>", COVER_HELP)
     .action(
       async (
         markdownPathArg: string,
-        opts: { articleId: string; column?: string | false },
+        opts: { articleId: string; column?: string | false; cover?: string },
         command: Command,
       ) => {
         const client = await buildClient();
@@ -246,6 +262,7 @@ function buildProgram(): Command {
           markdownPath,
           articleId,
           column,
+          coverPath(opts.cover),
         );
         console.log(
           `Updated article: https://zhuanlan.zhihu.com/p/${updatedId}`,
@@ -255,17 +272,20 @@ function buildProgram(): Command {
 
   program
     .command("preview")
-    .description("Push draft content and print the Zhihu preview URL.")
+    .description(
+      "Push draft content and print the Zhihu preview URL. A new article gets a draft, recorded as zhihu_draft_id, that publish then publishes.",
+    )
     .argument("[markdown_path]", MARKDOWN_PATH_HELP, "")
     .option(
       "--article-id <id>",
       "The Zhihu article; defaults to zhihu_article_id in the front matter.",
       "",
     )
+    .option("--cover <path>", COVER_HELP)
     .action(
       async (
         markdownPathArg: string,
-        opts: { articleId: string },
+        opts: { articleId: string; cover?: string },
         command: Command,
       ) => {
         const client = await buildClient();
@@ -273,10 +293,14 @@ function buildProgram(): Command {
           command,
           markdownPathArg,
           opts.articleId,
+          true,
         );
-        console.log(
-          `Preview URL: ${await client.previewArticle(markdownPath, articleId)}`,
+        const url = await client.previewArticle(
+          markdownPath,
+          articleId || null,
+          coverPath(opts.cover),
         );
+        console.log(`Preview URL: ${url}`);
       },
     );
 

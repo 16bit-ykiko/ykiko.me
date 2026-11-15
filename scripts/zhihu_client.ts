@@ -1,9 +1,11 @@
 import { spawn, spawnSync } from "node:child_process";
-import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { createHash, createHmac } from "node:crypto";
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { setTimeout as sleep } from "node:timers/promises";
 import { formatTimestamp, localIsoNow } from "./dates.ts";
 import {
+  metadataString,
   readMarkdownDocument,
   renderFrontMatter,
   writeMarkdownDocument,
@@ -11,7 +13,7 @@ import {
 } from "./front_matter.ts";
 import { Session, USER_AGENT, type Response, type Transport } from "./http.ts";
 import { isObject, truthy, type Json, type JsonObject } from "./json.ts";
-import { markdownToHtml } from "./markdown_html.ts";
+import { markdownToHtml, type ImageInfo } from "./markdown_html.ts";
 import { dumpYaml, loadYaml } from "./yaml_io.ts";
 import { readText, strip } from "./text.ts";
 import { REPO_ROOT } from "./paths.ts";
@@ -66,6 +68,19 @@ const CAPTCHA_V2_API =
   "https://www.zhihu.com/api/v3/oauth/captcha/v2?type=captcha_sign_in";
 const UDID_API = "https://www.zhihu.com/udid";
 export const ZHUANLAN_API = "https://zhuanlan.zhihu.com/api/articles";
+const IMAGES_API = "https://api.zhihu.com/images";
+const IMAGE_HOST = "https://picx.zhimg.com";
+const OSS_HOST = "https://zhihu-pics-upload.zhimg.com";
+const OSS_BUCKET = "zhihu-pics";
+const OSS_USER_AGENT = "aliyun-sdk-js/6.8.0 Chrome 120.0.0.0 on Linux 64-bit";
+const IMAGE_TYPES: Record<string, string> = {
+  png: "image/png",
+  gif: "image/gif",
+  jpg: "image/jpeg",
+  jpeg: "image/jpeg",
+};
+// One level of brackets may nest in the alt text: ![grid[0].](a.gif)
+const MARKDOWN_IMAGE = /!\[((?:[^[\]]|\[[^[\]]*\])*)\]\(([^()\s]+)\)/g;
 
 function get(obj: JsonObject, key: string): Json | undefined {
   return Object.hasOwn(obj, key) ? obj[key] : undefined;
@@ -300,10 +315,43 @@ function toZhihuLinks(markdown: string): string {
   );
 }
 
-function titleOf(metadata: Metadata, markdownPath: string): string {
-  return truthy(metadata["title"])
-    ? String(metadata["title"])
-    : path.basename(markdownPath, path.extname(markdownPath));
+// The title is the front matter's, else an opening "# " line, which then
+// leaves the body, else the file name.
+function titleAndBody(
+  metadata: Metadata,
+  body: string,
+  markdownPath: string,
+): [string, string] {
+  if (truthy(metadata["title"])) return [String(metadata["title"]), body];
+  const heading = /^\s*# (.+)\n/.exec(body);
+  if (heading) return [strip(heading[1]!), body.slice(heading[0].length)];
+  return [path.basename(markdownPath, path.extname(markdownPath)), body];
+}
+
+export function imageSize(data: Buffer): { width: number; height: number } {
+  if (data.subarray(1, 4).toString("latin1") === "PNG") {
+    return { width: data.readUInt32BE(16), height: data.readUInt32BE(20) };
+  }
+  if (data.subarray(0, 3).toString("latin1") === "GIF") {
+    return { width: data.readUInt16LE(6), height: data.readUInt16LE(8) };
+  }
+  if (data[0] === 0xff && data[1] === 0xd8) {
+    for (let at = 2; at + 9 < data.length; ) {
+      const marker = data[at + 1]!;
+      if (
+        marker >= 0xc0 &&
+        marker <= 0xcf &&
+        ![0xc4, 0xc8, 0xcc].includes(marker)
+      ) {
+        return {
+          width: data.readUInt16BE(at + 7),
+          height: data.readUInt16BE(at + 5),
+        };
+      }
+      at += 2 + data.readUInt16BE(at + 2);
+    }
+  }
+  throw new Error("not a PNG, GIF or JPEG image");
 }
 
 function titleImageOf(metadata: Metadata): Json {
@@ -771,40 +819,166 @@ export class ZhihuClient {
     }
   }
 
-  async createOrUpdateArticle(
-    markdownPath: string,
-    articleId: string | null,
-    column: ZhihuColumn | null,
-  ): Promise<string> {
-    const [metadata, bodyMarkdown] = readMarkdownDocument(markdownPath);
-    const title = titleOf(metadata, markdownPath);
-    const html = markdownToHtml(toZhihuLinks(bodyMarkdown));
-    const titleImage = titleImageOf(metadata);
-
-    let targetId: string;
-    if (articleId) {
-      targetId = String(articleId);
-    } else {
-      const createResponse = await this.session.post(`${ZHUANLAN_API}/drafts`, {
-        json: { title, delta_time: 0 },
-        headers: ZHUANLAN_HEADERS,
+  // Zhihu hands out a slot for the image, the file goes to its OSS bucket,
+  // and the image is usable once Zhihu has processed it, which takes a GIF
+  // minutes. An image Zhihu already has needs no upload.
+  async uploadImage(file: string): Promise<{ url: string } & ImageInfo> {
+    const extension = path.extname(file).slice(1).toLowerCase();
+    const type = IMAGE_TYPES[extension];
+    if (type === undefined) {
+      throw new Error(`${file}: Zhihu takes PNG, GIF and JPEG images`);
+    }
+    const data = readFileSync(file);
+    const slotResponse = await this.session.post(IMAGES_API, {
+      json: {
+        image_hash: createHash("md5").update(data).digest("hex"),
+        source: "article",
+      },
+      headers: API_HEADERS,
+      timeout: REQUEST_TIMEOUT_SECONDS,
+    });
+    slotResponse.raiseForStatus();
+    const slot = slotResponse.json();
+    const uploadFile = isObject(slot) ? get(slot, "upload_file") : undefined;
+    if (!isObject(uploadFile)) throw new Error(`${file}: no upload slot`);
+    const imageId = str(uploadFile["image_id"]);
+    if (int(uploadFile["state"]) === 2) {
+      const token = isObject(slot) ? get(slot, "upload_token") : undefined;
+      if (!isObject(token)) throw new Error(`${file}: no upload token`);
+      const objectKey = str(uploadFile["object_key"]);
+      const date = new Date().toUTCString();
+      const securityToken = str(token["access_token"]);
+      const signature = createHmac("sha1", str(token["access_key"]))
+        .update(
+          `PUT\n\n${type}\n${date}\n` +
+            `x-oss-date:${date}\n` +
+            `x-oss-security-token:${securityToken}\n` +
+            `x-oss-user-agent:${OSS_USER_AGENT}\n` +
+            `/${OSS_BUCKET}/${objectKey}`,
+        )
+        .digest("base64");
+      const put = await this.session.put(`${OSS_HOST}/${objectKey}`, {
+        data,
+        headers: {
+          "Content-Type": type,
+          Date: date,
+          "x-oss-date": date,
+          "x-oss-security-token": securityToken,
+          "x-oss-user-agent": OSS_USER_AGENT,
+          Authorization: `OSS ${str(token["access_id"])}:${signature}`,
+        },
+        timeout: 120,
+      });
+      put.raiseForStatus();
+      const done = await this.session.put(
+        `${IMAGES_API}/${imageId}/uploading_status`,
+        {
+          json: { upload_result: "success" },
+          headers: API_HEADERS,
+          timeout: REQUEST_TIMEOUT_SECONDS,
+        },
+      );
+      done.raiseForStatus();
+    }
+    let info: Json = null;
+    for (let waited = 0; waited < 600; waited++) {
+      const response = await this.session.get(`${IMAGES_API}/${imageId}`, {
+        headers: API_HEADERS,
         timeout: REQUEST_TIMEOUT_SECONDS,
       });
-      createResponse.raiseForStatus();
-      const created = createResponse.json();
-      if (!isObject(created) || get(created, "id") === undefined) {
-        throw new Error("Draft creation returned no id");
-      }
-      targetId = str(created["id"]);
+      response.raiseForStatus();
+      info = response.json();
+      if (isObject(info) && info["status"] === "success") break;
+      await sleep(1000);
     }
+    if (!isObject(info) || info["status"] !== "success") {
+      throw new Error(
+        `${file}: Zhihu did not finish processing image ${imageId}`,
+      );
+    }
+    const hash = info["original_hash"];
+    if (typeof hash !== "string") throw new Error(`${file}: no image hash`);
+    const suffix = extension === "jpeg" ? "jpg" : extension;
+    return {
+      url: `${IMAGE_HOST}/${hash}.${suffix}`,
+      ...imageSize(data),
+      ...(suffix === "gif" ? { thumbnail: `${IMAGE_HOST}/${hash}.jpg` } : {}),
+    };
+  }
 
+  // The images the markdown links on disk go to Zhihu's image host, the
+  // links rewritten to it.
+  private async hostLocalImages(
+    markdown: string,
+    baseDir: string,
+  ): Promise<[string, Map<string, ImageInfo>]> {
+    const hosted = new Map<string, string>();
+    const images = new Map<string, ImageInfo>();
+    for (const match of markdown.matchAll(MARKDOWN_IMAGE)) {
+      const target = match[2]!;
+      if (/^[a-z][a-z0-9+.-]*:/i.test(target) || hosted.has(target)) continue;
+      const { url, ...info } = await this.uploadImage(
+        path.resolve(baseDir, target),
+      );
+      hosted.set(target, url);
+      images.set(url, info);
+    }
+    const rewritten = markdown.replace(
+      MARKDOWN_IMAGE,
+      (whole, alt: string, target: string) =>
+        hosted.has(target) ? `![${alt}](${hosted.get(target)})` : whole,
+    );
+    return [rewritten, images];
+  }
+
+  // `cover`: an image on disk to upload as the title image, recorded in
+  // the front matter so later updates keep it.
+  private async draftContent(
+    markdownPath: string,
+    metadata: Metadata,
+    bodyMarkdown: string,
+    cover: string | null,
+  ): Promise<{ title: string; html: string; titleImage: Json }> {
+    const [title, body] = titleAndBody(metadata, bodyMarkdown, markdownPath);
+    const [markdown, images] = await this.hostLocalImages(
+      toZhihuLinks(body),
+      path.dirname(markdownPath),
+    );
+    if (cover) {
+      metadata["zhihu_title_image_url"] = (await this.uploadImage(cover)).url;
+    }
+    return {
+      title,
+      html: markdownToHtml(markdown, images),
+      titleImage: titleImageOf(metadata),
+    };
+  }
+
+  private async createDraft(title: string): Promise<string> {
+    const createResponse = await this.session.post(`${ZHUANLAN_API}/drafts`, {
+      json: { title, delta_time: 0 },
+      headers: ZHUANLAN_HEADERS,
+      timeout: REQUEST_TIMEOUT_SECONDS,
+    });
+    createResponse.raiseForStatus();
+    const created = createResponse.json();
+    if (!isObject(created) || get(created, "id") === undefined) {
+      throw new Error("Draft creation returned no id");
+    }
+    return str(created["id"]);
+  }
+
+  private async patchDraft(
+    id: string,
+    content: { title: string; html: string; titleImage: Json },
+  ): Promise<void> {
     const patchResponse = await this.session.patch(
-      `${ZHUANLAN_API}/${targetId}/draft`,
+      `${ZHUANLAN_API}/${id}/draft`,
       {
         json: {
-          content: html,
-          title,
-          titleImage,
+          content: content.html,
+          title: content.title,
+          titleImage: content.titleImage,
           isTitleImageFullScreen: false,
           table_of_contents: true,
         },
@@ -813,6 +987,28 @@ export class ZhihuClient {
       },
     );
     patchResponse.raiseForStatus();
+  }
+
+  // Without `articleId`, the draft a preview made is published, or else a
+  // new one.
+  async createOrUpdateArticle(
+    markdownPath: string,
+    articleId: string | null,
+    column: ZhihuColumn | null,
+    cover: string | null = null,
+  ): Promise<string> {
+    const [metadata, bodyMarkdown] = readMarkdownDocument(markdownPath);
+    const content = await this.draftContent(
+      markdownPath,
+      metadata,
+      bodyMarkdown,
+      cover,
+    );
+    const targetId =
+      articleId ||
+      metadataString(metadata, "zhihu_draft_id") ||
+      (await this.createDraft(content.title));
+    await this.patchDraft(targetId, content);
 
     const publishResponse = await this.session.put(
       `${ZHUANLAN_API}/${targetId}/publish`,
@@ -827,6 +1023,7 @@ export class ZhihuClient {
     );
     publishResponse.raiseForStatus();
 
+    delete metadata["zhihu_draft_id"];
     metadata["zhihu_article_id"] = targetId;
     metadata["zhihu_url"] = `https://zhuanlan.zhihu.com/p/${targetId}`;
     if (column) {
@@ -837,30 +1034,31 @@ export class ZhihuClient {
     return targetId;
   }
 
-  // Pushes the content to the draft without publishing it.
+  // Pushes the content to the draft without publishing it. Without
+  // `articleId`, the draft is the one an earlier preview made, or a new one
+  // recorded in the front matter as zhihu_draft_id.
   async previewArticle(
     markdownPath: string,
-    articleId: string,
+    articleId: string | null,
+    cover: string | null = null,
   ): Promise<string> {
     const [metadata, bodyMarkdown] = readMarkdownDocument(markdownPath);
-    const title = titleOf(metadata, markdownPath);
-    const html = markdownToHtml(toZhihuLinks(bodyMarkdown));
-    const titleImage = titleImageOf(metadata);
-    const patchResponse = await this.session.patch(
-      `${ZHUANLAN_API}/${articleId}/draft`,
-      {
-        json: {
-          content: html,
-          title,
-          titleImage,
-          isTitleImageFullScreen: false,
-          table_of_contents: true,
-        },
-        headers: ZHUANLAN_HEADERS,
-        timeout: REQUEST_TIMEOUT_SECONDS,
-      },
+    const content = await this.draftContent(
+      markdownPath,
+      metadata,
+      bodyMarkdown,
+      cover,
     );
-    patchResponse.raiseForStatus();
-    return `https://zhuanlan.zhihu.com/p/${articleId}/preview?comment=0&catalog=1`;
+    let id = articleId || metadataString(metadata, "zhihu_draft_id");
+    const created = !id;
+    if (created) {
+      id = await this.createDraft(content.title);
+      metadata["zhihu_draft_id"] = id;
+    }
+    await this.patchDraft(id, content);
+    if (cover || created) {
+      writeMarkdownDocument(markdownPath, metadata, bodyMarkdown);
+    }
+    return `https://zhuanlan.zhihu.com/p/${id}/preview?comment=0&catalog=1`;
   }
 }

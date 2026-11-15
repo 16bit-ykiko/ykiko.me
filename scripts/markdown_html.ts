@@ -156,16 +156,31 @@ function normalizeSource(text: string): string {
     .replace(/(?<=\n) +\n/g, "\n");
 }
 
-export function markdownToHtml(markdownText: string): string {
+// What Zhihu wants to know of an image it hosts beyond its URL.
+export interface ImageInfo {
+  width: number;
+  height: number;
+  // A GIF's still frame.
+  thumbnail?: string;
+}
+
+// `images`: what is known of the images by URL; one missing goes without.
+export function markdownToHtml(
+  markdownText: string,
+  images: ReadonlyMap<string, ImageInfo> = new Map(),
+): string {
   const body = markdownText.replace(
     LINKCARD,
     (_m, url: string, title: string) =>
       `<p><a href="${url}">${title || url}</a></p>`,
   );
-  return postprocessZhihuHtml(renderer.render(normalizeSource(body)));
+  return postprocessZhihuHtml(renderer.render(normalizeSource(body)), images);
 }
 
-function postprocessZhihuHtml(html: string): string {
+function postprocessZhihuHtml(
+  html: string,
+  images: ReadonlyMap<string, ImageInfo>,
+): string {
   html = html.replace(
     /<pre><code class="language-([^"]+)">([\s\S]*?)<\/code><\/pre>/g,
     (_m, lang: string, code: string) => `<pre lang="${lang}">${code}</pre>`,
@@ -174,13 +189,14 @@ function postprocessZhihuHtml(html: string): string {
     /<pre><code>([\s\S]*?)<\/code><\/pre>/g,
     (_m, code: string) => `<pre>${code}</pre>`,
   );
-  // Zhihu has h2 (in the table of contents) and h3; h1 moves up to h2, h4
-  // and below become bold paragraphs.
+  // Zhihu's table of contents takes h2 and h3 only. An article written from
+  // h1 moves every level down one; otherwise h1 moves up to h2. Below h3,
+  // headings become bold paragraphs.
+  const shift = html.includes("<h1>") ? 1 : 0;
   html = html.replace(
     /<h([1-6])>([\s\S]*?)<\/h\1>/g,
     (_m, level: string, content: string) => {
-      const n = Number(level);
-      if (n === 1) return `<h2>${content}</h2>`;
+      const n = Math.max(Number(level) + shift, 2);
       if (n <= 3) return `<h${n}>${content}</h${n}>`;
       return `<p><strong>${content}</strong></p>`;
     },
@@ -198,8 +214,91 @@ function postprocessZhihuHtml(html: string): string {
     ),
     (_m, rows: string) => `<tbody>${rows}`,
   );
+  html = figures(html, images);
   html = mergeSplitOrderedLists(html);
+  html = tightenListItems(html);
   return stripBlockWhitespace(html);
+}
+
+function insertAfter(anchor: Node, node: Node): void {
+  const parent = anchor.parent!;
+  node.extract();
+  parent.children.splice(parent.children.indexOf(anchor) + 1, 0, node);
+  node.parent = parent;
+}
+
+function isBlank(node: Node): boolean {
+  return node instanceof TextNode && !strip(node.data);
+}
+
+function figure(img: Element, images: ReadonlyMap<string, ImageInfo>): Element {
+  const src = img.attr("src") ?? "";
+  const info = images.get(src);
+  const out = newElement("img");
+  out.attrs.set("src", src);
+  out.attrs.set("data-caption", img.attr("alt") ?? "");
+  out.attrs.set("data-size", "normal");
+  if (info) {
+    out.attrs.set("data-rawwidth", String(info.width));
+    out.attrs.set("data-rawheight", String(info.height));
+    if (info.thumbnail) out.attrs.set("data-thumbnail", info.thumbnail);
+  }
+  const wrapper = newElement("figure");
+  wrapper.attrs.set("data-size", "normal");
+  wrapper.append(out);
+  return wrapper;
+}
+
+// An image alone in its paragraph becomes a figure, its alt text the caption
+// Zhihu shows under it. Zhihu keeps no figure inside a list item, only a bare
+// inline image, so a figure in an item of a top-level unordered list leaves
+// it: the list is cut after that item and resumes after the figure. An
+// ordered list cannot be cut, Zhihu numbering every <ol> from 1.
+function figures(html: string, images: ReadonlyMap<string, ImageInfo>): string {
+  const root = parseHtml(`<div>${html}</div>`).find("div")!;
+  for (const img of root.findAll("img")) {
+    const p = img.parent;
+    if (p?.name !== "p" || p.children.some((c) => c !== img && !isBlank(c)))
+      continue;
+    insertAfter(p, figure(img, images));
+    p.extract();
+  }
+  for (const ul of root.elements().filter((e) => e.name === "ul")) {
+    let list = ul;
+    for (const li of ul.elements().filter((e) => e.name === "li")) {
+      if (li.parent !== list) {
+        list.append(li);
+      }
+      const moved = li.elements().filter((e) => e.name === "figure");
+      if (moved.length === 0) continue;
+      let anchor: Node = list;
+      for (const fig of moved) {
+        insertAfter(anchor, fig);
+        anchor = fig;
+      }
+      if (li.children.every(isBlank)) li.extract();
+      const rest = newElement("ul");
+      insertAfter(anchor, rest);
+      list = rest;
+    }
+    if (list !== ul && list.elements().length === 0) list.extract();
+  }
+  return decodeContents(root);
+}
+
+// The items of a loose list each hold a paragraph, which Zhihu shows with a
+// blank line between the items; an item holding just one loses it.
+function tightenListItems(html: string): string {
+  const root = parseHtml(`<div>${html}</div>`).find("div")!;
+  for (const li of root.findAll("li")) {
+    const content = li.children.filter((c) => !isBlank(c));
+    const only = content[0];
+    if (content.length !== 1 || !(only instanceof Element) || only.name !== "p")
+      continue;
+    for (const child of [...only.children]) insertAfter(only, child);
+    only.extract();
+  }
+  return decodeContents(root);
 }
 
 function startOf(ol: Element): number | null {
@@ -301,7 +400,7 @@ function stripNumberPrefix(node: Element, num: number): void {
 }
 
 const BLOCK_TAG = new RegExp(
-  `${WS_CLASS}*(</?(?:p|h[1-6]|blockquote|ul|ol|li|table|thead|tbody|tr|th|td|hr|div|pre)\\b[^>]*>)${WS_CLASS}*`,
+  `${WS_CLASS}*(</?(?:p|h[1-6]|blockquote|ul|ol|li|table|thead|tbody|tr|th|td|hr|div|pre|figure)\\b[^>]*>)${WS_CLASS}*`,
   "gu",
 );
 

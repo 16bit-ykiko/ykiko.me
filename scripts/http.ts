@@ -164,6 +164,8 @@ export interface RequestOptions {
   headers?: Record<string, string>;
   params?: Record<string, string | number>;
   json?: unknown;
+  // A raw body, sent as is; the caller sets its Content-Type.
+  data?: Buffer;
   timeout?: number;
 }
 
@@ -378,7 +380,7 @@ export class Session {
       target.searchParams.append(key, String(value));
     }
     let headers = mergeHeaders(DEFAULT_HEADERS, options.headers ?? {});
-    let body: Buffer | null = null;
+    let body: Buffer | null = options.data ?? null;
     if (options.json !== undefined) {
       body = Buffer.from(JSON.stringify(options.json), "utf8");
       if (

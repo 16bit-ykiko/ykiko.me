@@ -12,7 +12,7 @@ The tools in `scripts/` are TypeScript run directly by Node.js (≥ 26); run `np
 
 - `node scripts/zhihu_cli.ts sync [article_id ...]`: fetch my Zhihu articles (all of them, or the ones given) into `website/content/zh-cn/articles`, then format the repository with pixi. CI runs it daily.
 - `node scripts/zhihu_cli.ts login`: log in to Zhihu by scanning a QR code; the cookie is cached in `.cookie/zhihu.yaml`, and `--gh-secret ZHIHU_COOKIE` also updates the secret CI uses.
-- `node scripts/zhihu_cli.ts publish <file> [--column <column id>]`, `update-article [file] [--article-id <id>] [--column <column id> | --no-column]`, `preview`: publish or update an article (an update keeps the column in its front matter by default), or push a draft and print its preview link.
+- `node scripts/zhihu_cli.ts publish <file> [--column <column id>]`, `update-article [file] [--article-id <id>] [--column <column id> | --no-column]`, `preview [file]`: publish or update an article (an update keeps the column in its front matter by default), or push a draft and print its preview link; publish takes the draft a preview made. Each takes `--cover <image>`, and images the article links on disk are uploaded to Zhihu's image host.
 - `node scripts/md_format.ts [--fix] [file ...]`: check (`--fix`: fix) Chinese typesetting against [FORMAT_SPEC.md](FORMAT_SPEC.md).
 - `node scripts/translate_articles.ts`: translate changed Chinese articles into English by hand, through the Antigravity CLI (`agy`). CI never runs it.
 - `npm run check`, `npm test`: type check and tests.

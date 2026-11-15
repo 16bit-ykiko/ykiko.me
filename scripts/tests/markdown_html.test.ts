@@ -53,3 +53,44 @@ test("tabs become spaces at four-column stops", () => {
     "<pre>a   b\n    c\n</pre>",
   );
 });
+
+test("an article written from # moves every heading level down one", () => {
+  assert.equal(
+    markdownToHtml("# A\n\n## B\n\n### C\n\nx"),
+    "<h2>A</h2><h3>B</h3><p><strong>C</strong></p><p>x</p>",
+  );
+});
+
+test("an image alone in its paragraph becomes a figure with what is known of it", () => {
+  const images = new Map([
+    [
+      "https://picx.zhimg.com/v2-a.gif",
+      { width: 4, height: 3, thumbnail: "https://picx.zhimg.com/v2-a.jpg" },
+    ],
+  ]);
+  assert.equal(
+    markdownToHtml(
+      "![cap](https://picx.zhimg.com/v2-a.gif)\n\ntext ![x](https://picx.zhimg.com/v2-b.png)",
+      images,
+    ),
+    '<figure data-size="normal"><img data-caption="cap" data-rawheight="3" data-rawwidth="4" data-size="normal" data-thumbnail="https://picx.zhimg.com/v2-a.jpg" src="https://picx.zhimg.com/v2-a.gif"/></figure>' +
+      '<p>text <img alt="x" src="https://picx.zhimg.com/v2-b.png"/></p>',
+  );
+});
+
+test("a figure leaves its unordered list item, the list resuming after it", () => {
+  assert.equal(
+    markdownToHtml(
+      "- a\n\n  ![p](https://x/p.png)\n\n- b\n- c\n\n  ![q](https://x/q.png)\n",
+    ),
+    '<ul><li>a</li></ul><figure data-size="normal"><img data-caption="p" data-size="normal" src="https://x/p.png"/></figure>' +
+      '<ul><li>b</li><li>c</li></ul><figure data-size="normal"><img data-caption="q" data-size="normal" src="https://x/q.png"/></figure>',
+  );
+});
+
+test("a figure stays in its ordered list item", () => {
+  assert.equal(
+    markdownToHtml("1. a\n\n   ![p](https://x/p.png)\n2. b\n"),
+    '<ol><li><p>a</p><figure data-size="normal"><img data-caption="p" data-size="normal" src="https://x/p.png"/></figure></li><li>b</li></ol>',
+  );
+});

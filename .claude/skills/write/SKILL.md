@@ -145,17 +145,25 @@ over-bulleted prose, a one-line paragraph that only dramatizes the previous one.
   subtitles is cleaned with Codex image generation
   (`codex exec --skip-git-repo-check -s workspace-write --image=<file> -` with
   the prompt on stdin; `-i` swallows the prompt), then crop black bars.
-- **Column**: `node scripts/zhihu_cli.ts publish <file> --column <id>`;
-  without `--column` the article gets no column. `update-article` keeps
-  `zhihu_column_id` from the front matter unless given `--column` or
-  `--no-column`. clice posts go to 「clice 开发日记」
-  (`c_1852831599382646784`). An update re-sends `titleImage`
-  from `zhihu_title_image_url` in the front matter, so record the cover URL
-  there before updating.
+- **Preview first**: `node scripts/zhihu_cli.ts preview <file> --cover <image>`
+  pushes a draft and prints its preview link. Images the article links on
+  disk and the cover are uploaded to Zhihu's image host; the cover's URL goes
+  into the front matter as `zhihu_title_image_url`, the new draft's id as
+  `zhihu_draft_id`, and a rerun updates the same draft. The title is the
+  front matter's, else the opening `# ` line. An article written from `#`
+  has its levels moved down one (`#` → h2, `##` → h3), the two levels
+  Zhihu's table of contents takes.
+- **Column**: `node scripts/zhihu_cli.ts publish <file> --column <id>`
+  publishes the previewed draft; without `--column` the article gets no
+  column. `update-article` keeps `zhihu_column_id` from the front matter
+  unless given `--column` or `--no-column`. clice posts go to
+  「clice 开发日记」 (`c_1852831599382646784`). An update re-sends
+  `titleImage` from `zhihu_title_image_url` in the front matter.
 - **Rendering quirks**: two code blocks with nothing between them merge into
   one, so put a line of text between; a bare domain (`bazel.clice.io`) is
   auto-linked as `http://`, so write `[x](https://x)`; tables drop bold and
-  inline code.
+  inline code; an image in an ordered list item shows as a bare inline image
+  without its caption.
 - **After publishing** he edits on Zhihu himself. Local drafts are not kept;
   `node scripts/zhihu_cli.ts sync` brings the article into
   `website/content/zh-cn/articles/<id>/` (and runs the repo formatters).
