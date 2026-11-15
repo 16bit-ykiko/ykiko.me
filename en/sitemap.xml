@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.ykiko.me/en/articles/</loc>
-    <lastmod>2026-11-15T10:04:18+00:00</lastmod>
+    <lastmod>2026-11-15T10:04:18-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -18,12 +18,22 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/2105384023094834022/</loc>
-    <lastmod>2026-11-15T10:04:18+00:00</lastmod>
+    <lastmod>2026-11-15T10:04:18-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="https://www.ykiko.me/en/articles/2105384023094834022/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-CN"
+                href="https://www.ykiko.me/zh-cn/articles/2105384023094834022/"
+                />
   </url><url>
     <loc>https://www.ykiko.me/en/</loc>
-    <lastmod>2026-11-15T10:04:18+00:00</lastmod>
+    <lastmod>2026-11-15T10:04:18-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -38,7 +48,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/2090994886531100694/</loc>
-    <lastmod>2026-10-08T09:01:36+00:00</lastmod>
+    <lastmod>2026-10-08T09:01:36-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -53,7 +63,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/2069934520514749368/</loc>
-    <lastmod>2026-08-11T22:42:55+00:00</lastmod>
+    <lastmod>2026-08-11T22:42:55-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -68,7 +78,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/2034883949630059124/</loc>
-    <lastmod>2026-05-06T01:51:13+00:00</lastmod>
+    <lastmod>2026-05-06T01:51:13-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -83,7 +93,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1985940996270339378/</loc>
-    <lastmod>2026-03-27T14:29:52+00:00</lastmod>
+    <lastmod>2026-03-27T14:29:52-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -98,7 +108,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1971691994037334904/</loc>
-    <lastmod>2025-11-17T09:09:26+00:00</lastmod>
+    <lastmod>2025-11-17T09:09:26-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -113,7 +123,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1931855290430624907/</loc>
-    <lastmod>2025-07-25T02:52:25+00:00</lastmod>
+    <lastmod>2025-07-25T02:52:25-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -128,7 +138,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/1919923607997518115/</loc>
-    <lastmod>2025-07-08T09:07:33+00:00</lastmod>
+    <lastmod>2025-07-08T09:07:33-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -143,7 +153,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/21319978959/</loc>
-    <lastmod>2025-02-05T05:13:00+00:00</lastmod>
+    <lastmod>2025-02-05T05:13:00-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -158,7 +168,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/series/clice-dev-diary/</loc>
-    <lastmod>2025-11-27T06:12:20+00:00</lastmod>
+    <lastmod>2025-11-27T06:12:20-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -173,7 +183,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/13394352064/</loc>
-    <lastmod>2025-11-27T06:12:20+00:00</lastmod>
+    <lastmod>2025-11-27T06:12:20-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -188,7 +198,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/series/</loc>
-    <lastmod>2026-03-14T15:14:29+00:00</lastmod>
+    <lastmod>2026-03-14T15:14:29-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -203,7 +213,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/706509748/</loc>
-    <lastmod>2024-07-01T19:35:56+00:00</lastmod>
+    <lastmod>2024-07-01T19:35:56-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -218,7 +228,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/702197261/</loc>
-    <lastmod>2024-12-02T13:20:31+00:00</lastmod>
+    <lastmod>2024-12-02T13:20:31-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -233,7 +243,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/696878184/</loc>
-    <lastmod>2024-05-14T14:43:35+00:00</lastmod>
+    <lastmod>2024-05-14T14:43:35-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -248,7 +258,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/694365783/</loc>
-    <lastmod>2024-05-04T08:48:53+00:00</lastmod>
+    <lastmod>2024-05-04T08:48:53-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -263,7 +273,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/692886292/</loc>
-    <lastmod>2025-12-24T05:15:12+00:00</lastmod>
+    <lastmod>2025-12-24T05:15:12-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -278,7 +288,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/686296374/</loc>
-    <lastmod>2024-12-24T04:17:12+00:00</lastmod>
+    <lastmod>2024-12-24T04:17:12-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -293,7 +303,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/series/constexpr/</loc>
-    <lastmod>2024-12-18T03:21:51+00:00</lastmod>
+    <lastmod>2024-12-18T03:21:51-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -308,7 +318,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/683463723/</loc>
-    <lastmod>2024-11-30T10:28:59+00:00</lastmod>
+    <lastmod>2024-11-30T10:28:59-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -323,7 +333,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/682031684/</loc>
-    <lastmod>2024-12-18T03:21:51+00:00</lastmod>
+    <lastmod>2024-12-18T03:21:51-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -338,7 +348,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/680412313/</loc>
-    <lastmod>2025-07-08T08:16:05+00:00</lastmod>
+    <lastmod>2025-07-08T08:16:05-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -353,7 +363,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/679782886/</loc>
-    <lastmod>2024-12-18T03:45:31+00:00</lastmod>
+    <lastmod>2024-12-18T03:45:31-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -368,7 +378,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/674157958/</loc>
-    <lastmod>2025-01-14T12:36:56+00:00</lastmod>
+    <lastmod>2025-01-14T12:36:56-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -383,7 +393,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/670191053/</loc>
-    <lastmod>2024-11-30T10:02:59+00:00</lastmod>
+    <lastmod>2024-11-30T10:02:59-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -398,7 +408,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/series/reflection/</loc>
-    <lastmod>2025-06-22T03:33:38+00:00</lastmod>
+    <lastmod>2025-06-22T03:33:38-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -413,7 +423,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/670190357/</loc>
-    <lastmod>2024-11-30T10:08:55+00:00</lastmod>
+    <lastmod>2024-11-30T10:08:55-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -428,7 +438,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/669360731/</loc>
-    <lastmod>2024-11-30T10:01:57+00:00</lastmod>
+    <lastmod>2024-11-30T10:01:57-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -443,7 +453,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/669359855/</loc>
-    <lastmod>2024-11-30T10:01:14+00:00</lastmod>
+    <lastmod>2024-11-30T10:01:14-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -458,7 +468,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/669358870/</loc>
-    <lastmod>2024-10-21T01:35:13+00:00</lastmod>
+    <lastmod>2024-10-21T01:35:13-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -473,7 +483,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/661692275/</loc>
-    <lastmod>2025-06-22T03:33:38+00:00</lastmod>
+    <lastmod>2025-06-22T03:33:38-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -488,7 +498,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/659510753/</loc>
-    <lastmod>2024-12-18T03:24:06+00:00</lastmod>
+    <lastmod>2024-12-18T03:24:06-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -503,7 +513,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/655902377/</loc>
-    <lastmod>2025-12-24T05:14:54+00:00</lastmod>
+    <lastmod>2025-12-24T05:14:54-05:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -518,7 +528,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/646812253/</loc>
-    <lastmod>2026-03-14T15:14:29+00:00</lastmod>
+    <lastmod>2026-03-14T15:14:29-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -533,7 +543,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/series/stmp/</loc>
-    <lastmod>2026-03-14T15:14:29+00:00</lastmod>
+    <lastmod>2026-03-14T15:14:29-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -548,7 +558,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/646752343/</loc>
-    <lastmod>2026-03-14T15:05:50+00:00</lastmod>
+    <lastmod>2026-03-14T15:05:50-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
@@ -563,7 +573,7 @@
                 />
   </url><url>
     <loc>https://www.ykiko.me/en/articles/645810896/</loc>
-    <lastmod>2024-07-20T14:31:19+00:00</lastmod>
+    <lastmod>2024-07-20T14:31:19-04:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
     <xhtml:link
